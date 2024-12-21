@@ -8,6 +8,16 @@ import Background from './components/Background';
 import FlowingGradient from './components/FlowingGradient';
 import { useEffect } from 'react';
 import MatrixBackground from "./components/MatrixBackground";
+import ShortcutsModal from "./components/ShortcutsModal";
+import BootloaderClock from "./components/BootloaderClock";
+import FeatureGrid from "./components/FeatureGrid";
+import GlowingClock from "./components/GlowingClock";
+import SocialMediaIcons from "./components/SocialMediaIcons";
+import ToolsAnimation from "./components/ToolsAnimation";
+import RocketAnimation from "./components/RocketAnimation";
+import RocketAnimation3D from "./components/RocketAnimation3D";
+import BackgroundAnimation from "./components/BackgroundAnimation";
+import AnimatedConnections from "./components/AnimatedConnections";
 
 const AnimatedBackground = () => (
   <div className="fixed inset-0 -z-10">
@@ -89,36 +99,57 @@ const App = () => {
 
   return (
     <div className="relative min-h-screen">
-      <div className="fixed inset-0">
-        <FlowingGradient />
-        <Background />
-      </div>
+
+      <MatrixBackground />
+      <ShortcutsModal />
+
       <div className="relative z-10">
         <Navbar />
-        <div className="fixed inset-0 z-1">
-          <Background />
-          <LandingPage />
-          <PageContainer>
-            <LandingPage />
-            <FlowingGradient />
-            <MatrixBackground />
-          </PageContainer>
 
-
-        </div>
 
 
         <LandingPage />
 
-        <PhoneLayout>
-          <PageContainer>
-            <LandingPage />
-          </PageContainer>
-        </PhoneLayout>
+
+        <PageContainer>
+          <ShortcutsModal />
+
+
+          <ShortcutsModal />
+
+        </PageContainer>
+
 
         <PageContainer>
           <Dashboard />
+
+
+
+          <RocketAnimation />
+
+
+
+
+
+
         </PageContainer>
+      </div>
+
+      <div className="relative z-10">
+        <FeatureGrid />
+
+
+
+        <div className="relative z-10">
+          {/* Your other components */}
+          <GlowingClock />
+          <AnimatedConnections />
+
+          <ToolsAnimation />
+
+
+
+        </div>
       </div>
     </div>
   );
