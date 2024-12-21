@@ -1,0 +1,411 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  transition: all 0.3s ease;
+}
+
+.glass-morphism:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 30px rgba(79, 70, 229, 0.1);
+}
+
+.glass-morphism::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(255, 255, 255, 0.06),
+      transparent 40%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.glass-morphism:hover::before {
+  opacity: 1;
+}
+
+/* Add smooth transitions */
+* {
+  transition: all 0.2s ease-in-out;
+}
+
+@layer components {
+  .content-container {
+    @apply relative w-full max-w-4xl mx-auto rounded-2xl overflow-hidden;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  }
+
+  .content-wrapper {
+    @apply p-6 md:p-8;
+  }
+
+  .gradient-blob {
+    @apply absolute blur-3xl opacity-20 rounded-full;
+    animation: blob-animation 15s infinite ease;
+  }
+
+  .gradient-blob-1 {
+    @apply -top-1/4 -right-1/4 w-96 h-96;
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  }
+
+  .gradient-blob-2 {
+    @apply -bottom-1/4 -left-1/4 w-96 h-96;
+    background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  }
+}
+
+.main-background {
+  @apply min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center p-8;
+}
+
+@keyframes blob-animation {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  25% {
+    transform: translate(20px, -20px) scale(1.1);
+  }
+
+  50% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+
+  75% {
+    transform: translate(20px, 20px) scale(1.05);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0px, 0px);
+  }
+
+  50% {
+    transform: translate(40px, 20px);
+  }
+
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+
+.background-gradient {
+  all: unset;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: #111112;
+}
+
+.flow-container {
+  @apply absolute inset-0 overflow-hidden;
+  filter: blur(80px);
+}
+
+.flow-effect {
+  @apply absolute w-full opacity-30;
+  height: 200%;
+  background: linear-gradient(180deg,
+      transparent 0%,
+      rgba(79, 70, 229, 0.4) 20%,
+      rgba(139, 92, 246, 0.4) 50%,
+      rgba(91, 33, 182, 0.4) 80%,
+      transparent 100%);
+  transform-origin: center;
+  transform: rotate(-5deg);
+}
+
+@keyframes flowDown {
+  0% {
+    transform: translateY(-50%) rotate(5deg);
+  }
+
+  100% {
+    transform: translateY(50%) rotate(-5deg);
+  }
+}
+
+.flow-1 {
+  left: 20%;
+  animation: flowDown 30s linear infinite;
+}
+
+.flow-2 {
+  left: 50%;
+  animation: flowDown 35s linear infinite;
+  animation-delay: -15s;
+}
+
+.flow-3 {
+  left: 80%;
+  animation: flowDown 32s linear infinite;
+  animation-delay: -7s;
+}
+
+/* Hover effect */
+.flow-container:hover .flow-effect {
+  opacity: 0.7;
+  transition: opacity 0.5s ease;
+}
+
+.gradient-orb {
+  @apply absolute rounded-full opacity-30 blur-[100px];
+  animation: float 20s ease-in-out infinite;
+}
+
+.orb-blue {
+  @apply w-[500px] h-[500px] -left-40 top-0;
+  background: radial-gradient(circle at center, #2563eb 0%, rgba(37, 99, 235, 0) 70%);
+}
+
+.orb-purple {
+  @apply w-[600px] h-[600px] right-0 top-1/4;
+  background: radial-gradient(circle at center, #7c3aed 0%, rgba(124, 58, 237, 0) 70%);
+  animation-delay: -10s;
+}
+
+.orb-pink {
+  @apply w-[500px] h-[500px] bottom-0 left-1/4;
+  background: radial-gradient(circle at center, #db2777 0%, rgba(219, 39, 119, 0) 70%);
+  animation-delay: -5s;
+}
+
+/* Light beam effect */
+.beam-container {
+  @apply absolute inset-0 overflow-hidden;
+}
+
+.light-beam {
+  @apply absolute;
+  width: 2px;
+  height: 200%;
+  top: -50%;
+  left: 75%;
+  background: linear-gradient(to bottom,
+      transparent 0%,
+      rgba(79, 70, 229, 0.5) 15%,
+      #ffffff 50%,
+      rgba(79, 70, 229, 0.5) 85%,
+      transparent 100%);
+}
+
+.beam-glow {
+  @apply absolute;
+  width: 150px;
+  height: 150%;
+  top: -25%;
+  left: calc(75% - 75px);
+  background: radial-gradient(ellipse at center,
+      rgba(79, 70, 229, 0.2) 0%,
+      rgba(79, 70, 229, 0.1) 40%,
+      transparent 100%);
+  filter: blur(30px);
+}
+
+.ambient-glow {
+  @apply absolute inset-0;
+  background: radial-gradient(ellipse at 75% 50%,
+      rgba(79, 70, 229, 0.15) 0%,
+      rgba(79, 70, 229, 0.05) 40%,
+      transparent 70%);
+}
+
+/* Add a subtle scan line effect */
+.light-beam::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(0deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.1) 2px,
+      rgba(255, 255, 255, 0.1) 4px);
+  animation: scanlines 10s linear infinite;
+}
+
+@keyframes scanlines {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(100px);
+  }
+}
+
+/* Background effects */
+.beam-effect {
+  @apply absolute;
+  width: 2px;
+  height: 200%;
+  top: -50%;
+  right: 25%;
+  filter: blur(4px);
+  transform-origin: center;
+}
+
+.beam-effect::after {
+  content: '';
+  position: absolute;
+  inset: -50px;
+  background: radial-gradient(circle at center,
+      rgba(77, 166, 255, 0.2),
+      transparent 70%);
+  filter: blur(30px);
+}
+
+/* Node styles */
+.node {
+  @apply w-32 h-32 rounded-xl flex items-center justify-center;
+  border: 1px solid rgba(77, 166, 255, 0.1);
+  box-shadow: 0 0 30px rgba(77, 166, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.node:hover {
+  border-color: rgba(77, 166, 255, 0.2);
+  box-shadow: 0 0 40px rgba(77, 166, 255, 0.2);
+}
+
+.central-node {
+  @apply w-36 h-36;
+}
+
+/* Connection lines */
+.connecting-line {
+  stroke-dasharray: 5;
+  animation: dash 20s linear infinite;
+  opacity: 0.3;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 1000;
+  }
+}
+
+/* Add these new animations */
+@keyframes flowUp {
+  0% {
+    transform: translateY(0) rotate(-20deg);
+  }
+
+  50% {
+    transform: translateY(-100px) rotate(-20deg);
+  }
+
+  100% {
+    transform: translateY(0) rotate(-20deg);
+  }
+}
+
+@keyframes flowDown {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(100px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-flow-slow {
+  animation: flowUp 15s ease-in-out infinite;
+}
+
+.animate-flow-medium {
+  animation: flowDown 12s ease-in-out infinite;
+}
+
+.animate-flow-fast {
+  animation: flowUp 10s ease-in-out infinite;
+}
+
+/* Add gradient utilities if needed */
+.bg-gradient-radial {
+  background-image: radial-gradient(circle, var(--tw-gradient-stops));
+}
+
+/* Add these specific styles */
+.gradient-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.gradient-element {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* Add these new styles */
+@keyframes glow {
+  0% {
+    filter: blur(1px) brightness(1);
+  }
+
+  50% {
+    filter: blur(2px) brightness(1.2);
+  }
+
+  100% {
+    filter: blur(1px) brightness(1);
+  }
+}
+
+.matrix-glow {
+  animation: glow 4s ease-in-out infinite;
+}
+
+/* Update existing gradient styles if needed */
+.gradient-overlay {
+  background: linear-gradient(to bottom,
+      transparent,
+      rgba(77, 166, 255, 0.1),
+      transparent);
+  mix-blend-mode: overlay;
+}
+
+/* Add these styles for the background image hover effect */
+.bg-image-hover {
+  @apply absolute inset-0 bg-cover bg-center bg-no-repeat;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.bg-image-hover:hover {
+  opacity: 0.2;
+  filter: brightness(1.2) saturate(1.2);
+}
+
+.glow-effect {
+  pointer-events: none;
+  position: absolute;
+  background: radial-gradient(circle at var(--mouse-x) var(--mouse-y),
+      rgba(77, 166, 255, 0.15),
+      transparent 70%);
+  mix-blend-mode: screen;
+  filter: blur(10px);
+}
