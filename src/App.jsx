@@ -112,8 +112,6 @@ const App = () => {
 
 
         <PageContainer>
-          <ShortcutsModal />
-
 
           <ShortcutsModal />
 
@@ -122,15 +120,7 @@ const App = () => {
 
         <PageContainer>
           <Dashboard />
-
-
-
           <RocketAnimation />
-
-
-
-
-
 
         </PageContainer>
       </div>

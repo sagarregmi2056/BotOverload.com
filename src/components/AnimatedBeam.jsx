@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
-const AnimatedBeam = ({ fromRef, toRef, containerRef, duration = 3 }) => {
+const AnimatedBeam = ({ fromRef, toRef, containerRef, duration = 2 }) => {
     const beamRef = useRef(null);
     const particleRef = useRef(null);
 
@@ -40,19 +40,20 @@ const AnimatedBeam = ({ fromRef, toRef, containerRef, duration = 3 }) => {
         const animateParticle = () => {
             if (!particleRef.current) return;
 
-            gsap.fromTo(particleRef.current,
-                {
-                    left: '0%',
-                    opacity: 0.8,
-                },
-                {
-                    left: '100%',
-                    opacity: 0,
-                    duration: duration,
-                    ease: "none",
-                    repeat: -1,
+            gsap.to(particleRef.current, {
+                left: '100%',
+                duration: duration,
+                repeat: -1,
+                ease: "none",
+                onUpdate: () => {
+                    if (particleRef.current) {
+                        const progress = gsap.getProperty(particleRef.current, "left");
+                        // Create pulsing effect
+                        const opacity = 0.8 - Math.abs(Math.sin(progress * Math.PI)) * 0.3;
+                        particleRef.current.style.opacity = opacity;
+                    }
                 }
-            );
+            });
         };
 
         updateBeamPosition();
@@ -63,27 +64,46 @@ const AnimatedBeam = ({ fromRef, toRef, containerRef, duration = 3 }) => {
     }, [fromRef, toRef, containerRef, duration]);
 
     return (
-        <div
-            ref={beamRef}
-            className="absolute origin-left"
-            style={{
-                height: '1px',
-                background: 'linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)',
-                pointerEvents: 'none',
-            }}
-        >
+        <>
+            {/* Base beam */}
             <div
-                ref={particleRef}
-                className="absolute top-1/2 -translate-y-1/2"
+                ref={beamRef}
+                className="absolute origin-left"
                 style={{
-                    width: '20px',
-                    height: '2px',
-                    background: 'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 100%)',
-                    filter: 'blur(1px)',
+                    height: '1.5px',
+                    background: 'linear-gradient(90deg, rgba(99,102,241,0.15) 0%, rgba(168,85,247,0.15) 100%)',
+                    boxShadow: '0 0 8px rgba(168,85,247,0.3)',
+                    pointerEvents: 'none',
+                }}
+            >
+                {/* Moving particle effect */}
+                <div
+                    ref={particleRef}
+                    className="absolute top-1/2 -translate-y-1/2"
+                    style={{
+                        width: '50px',
+                        height: '2px',
+                        background: 'linear-gradient(90deg, rgba(99,102,241,0) 0%, rgba(168,85,247,1) 50%, rgba(99,102,241,0) 100%)',
+                        boxShadow: '0 0 15px rgba(168,85,247,0.8), 0 0 30px rgba(99,102,241,0.5)',
+                        filter: 'blur(0.5px)',
+                        pointerEvents: 'none',
+                        left: 0,
+                    }}
+                />
+            </div>
+
+            {/* Additional glow effect */}
+            <div
+                className="absolute"
+                style={{
+                    ...beamRef.current?.style,
+                    height: '3px',
+                    background: 'linear-gradient(90deg, rgba(99,102,241,0.05) 0%, rgba(168,85,247,0.05) 100%)',
+                    filter: 'blur(2px)',
                     pointerEvents: 'none',
                 }}
             />
-        </div>
+        </>
     );
 };
 
