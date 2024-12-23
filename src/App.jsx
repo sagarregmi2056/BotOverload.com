@@ -18,6 +18,8 @@ import RocketAnimation from "./components/RocketAnimation";
 import RocketAnimation3D from "./components/RocketAnimation3D";
 import BackgroundAnimation from "./components/BackgroundAnimation";
 import AnimatedConnections from "./components/AnimatedConnections";
+import MobileDevice from "./components/MobileDevice";
+import FlowingBackground from "./components/FlowingBackground";
 
 const AnimatedBackground = () => (
   <div className="fixed inset-0 -z-10">
@@ -68,7 +70,7 @@ const PageContainer = ({ children }) => (
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.7, ease: "easeOut" }}
-    className="min-h-screen p-6 flex items-center justify-center"
+    className="min-h-screen p-6 flex items-center justify-left"
   >
     <motion.div
       whileHover={{ scale: 1.01 }}
@@ -99,47 +101,61 @@ const App = () => {
 
   return (
     <div className="relative min-h-screen">
+      <GlowingClock />
 
-      <MatrixBackground />
-      <ShortcutsModal />
+
 
       <div className="relative z-10">
         <Navbar />
 
 
 
-        <LandingPage />
+
+
+        <AnimatedConnections />
+
+
 
 
         <PageContainer>
 
-          <ShortcutsModal />
-
-        </PageContainer>
-
-
-        <PageContainer>
           <Dashboard />
-          <RocketAnimation />
+
+
 
         </PageContainer>
+
+
+
+        <FlowingBackground />
+        <PhoneLayout>
+
+          <PageContainer>
+
+            <ShortcutsModal />
+
+
+
+          </PageContainer>
+
+
+
+        </PhoneLayout>
       </div>
 
-      <div className="relative z-10">
-        <FeatureGrid />
+      <div className="relative z-0">
 
 
 
-        <div className="relative z-10">
-          {/* Your other components */}
-          <GlowingClock />
-          <AnimatedConnections />
-
-          <ToolsAnimation />
 
 
-
+        <div className="relative z-10 mt-10 ">
+          <MobileDevice />
         </div>
+
+
+
+
       </div>
     </div>
   );

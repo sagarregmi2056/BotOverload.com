@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import AnimatedConnections from './AnimatedConnections';
 
 const GlowingClock = () => {
     const [rotation, setRotation] = useState(0);
@@ -99,7 +100,7 @@ const GlowingClock = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.5 }}
                     >
-                        Join the<br />Movement
+                        welcome to<br />Bot overload
                     </motion.h2>
                     <motion.p
                         className="text-gray-400 text-lg mb-10"
@@ -130,7 +131,9 @@ const GlowingClock = () => {
                             <span className="w-4 h-4 bg-[#36C5F0] rounded-sm" />
                             JOIN OUR SLACK
                         </button>
+
                     </motion.div>
+
                 </div>
             </div>
         </div>
