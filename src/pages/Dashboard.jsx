@@ -62,7 +62,7 @@ const Dashboard = () => {
                       muted
                       playsInline
                     >
-                      <source src="https://res.cloudinary.com/dfqc0mmdn/video/upload/v1734963717/10145286-hd_1080_1920_30fps_e6iuvw.mp4" type="video/mp4" />
+                      <source src="https://res.cloudinary.com/dfqc0mmdn/video/upload/v1735037848/original-c46d12d970c45ec42a5e8a4bb6d20d67_vwikvq.mp4" type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
 

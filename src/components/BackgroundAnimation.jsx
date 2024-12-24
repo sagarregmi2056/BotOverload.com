@@ -87,8 +87,25 @@ const BackgroundAnimation = () => {
                         pointer-events: none;
                     }
 
+                    .rocket {
+                        position: absolute;
+                        width: 40px;
+                        height: 80px;
+                        background: linear-gradient(45deg, #ff4444, #ff0000);
+                        clip-path: polygon(50% 0%, 80% 100%, 20% 100%);
+                    }
 
-                    
+                    .rocket::after {
+                        content: '';
+                        position: absolute;
+                        bottom: -20px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 20px;
+                        height: 30px;
+                        background: linear-gradient(to bottom, #ff9933, transparent);
+                        filter: blur(5px);
+                    }
                 `}
             </style>
             <div id="animation-container" />

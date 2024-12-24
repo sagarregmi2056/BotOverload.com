@@ -20,14 +20,14 @@ const NotificationToast = ({ message }) => (
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -50 }}
-        className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 
-                   border border-purple-400/20 backdrop-blur-sm"
+        className="absolute top-20 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white px-4 py-2 rounded-lg shadow-lg z-50 
+                   border border-purple-400/20 backdrop-blur-sm max-w-[90%] text-sm"
     >
         <div className="flex items-center gap-2">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
             </svg>
-            {message}
+            <span className="line-clamp-2">{message}</span>
         </div>
     </motion.div>
 );
@@ -65,7 +65,7 @@ const ChatBubble = ({ message, isOutgoing, delay }) => (
         initial={{ opacity: 0, x: isOutgoing ? 50 : -50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.3, delay }}
-        className={`flex ${isOutgoing ? 'justify-end' : 'justify-start'} mb-4`}
+        className={`flex ${isOutgoing ? 'justify-end' : 'justify-start'} mb-3`}
     >
         {!isOutgoing && (
             <div className="w-8 h-8 rounded-full bg-purple-900/50 mr-2 flex-shrink-0 overflow-hidden border border-purple-500/20">
@@ -73,14 +73,14 @@ const ChatBubble = ({ message, isOutgoing, delay }) => (
             </div>
         )}
         <div className={`
-            max-w-[70%] rounded-2xl p-3 
+            max-w-[75%] rounded-2xl p-3 
             ${isOutgoing
                 ? 'bg-purple-900/50 text-white rounded-tr-sm border border-purple-500/20'
                 : 'bg-[#1a1a1a] text-white rounded-tl-sm border border-purple-500/20'
             }
         `}>
-            <p className="text-sm">{message}</p>
-            <p className="text-xs text-purple-300/60 text-right mt-1">
+            <p className="text-sm whitespace-pre-line">{message}</p>
+            <p className="text-[10px] text-purple-300/60 text-right mt-1">
                 {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
             </p>
         </div>
@@ -164,59 +164,69 @@ const BotOverloadDemo = () => {
     };
 
     return (
-        <div className="bg-[#0a0a0a] h-[500px] rounded-xl overflow-hidden relative border border-purple-500/20">
-            {/* Notification */}
-            <AnimatePresence>
-                {showNotification && (
-                    <NotificationToast message="Bulk message broadcast completed successfully!" />
-                )}
-            </AnimatePresence>
+        <div className="relative w-[320px] h-[600px] ml-4 overflow-hidden bg-[#0a0a0a] rounded-r-[40px] rounded-l-none border-r-[14px] border-y-[14px] border-r-black border-y-black">
+            {/* Phone Details */}
+            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-40 h-6 bg-black rounded-b-3xl z-20"></div>
+            <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-gray-800 rounded-full z-20"></div>
 
-            {/* Header */}
-            <div className="bg-[#1a1a1a] p-4 flex items-center gap-3 border-b border-purple-500/20">
-                <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-purple-500/30">
-                    <BotAvatar />
-                </div>
-                <div>
-                    <h3 className="text-white font-medium flex items-center gap-2">
-                        BotOverload.com
-                        <span className="px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 text-xs">
-                            PRO
-                        </span>
-                    </h3>
-                    <p className="text-purple-300/60 text-sm">Bulk Message Demo</p>
-                </div>
-            </div>
-
-            {/* Chat Area */}
-            <div
-                ref={chatContainerRef}
-                className="h-[calc(100%-136px)] overflow-y-auto p-4 bg-[#0a0a0a] scroll-smooth"
-            >
+            {/* Main Content Container */}
+            <div className="relative h-full w-full overflow-hidden bg-[#0a0a0a]">
+                {/* Notification */}
                 <AnimatePresence>
-                    {renderMessages()}
+                    {showNotification && (
+                        <NotificationToast message="Bulk message broadcast completed successfully!" />
+                    )}
                 </AnimatePresence>
-                {showLoader && <BotLoader />}
-            </div>
 
-            {/* Input Area */}
-            <div className="bg-[#1a1a1a] p-4 flex items-center gap-4 border-t border-purple-500/20">
-                <button className="text-purple-400 hover:text-purple-300 transition-colors">
-                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z" />
-                    </svg>
-                </button>
-                <input
-                    type="text"
-                    placeholder="Type your message..."
-                    className="flex-1 bg-purple-900/20 text-white rounded-lg px-4 py-2 outline-none border border-purple-500/20 
-                             placeholder-purple-300/40 focus:border-purple-500/40 transition-colors"
-                />
-                <button className="text-purple-400 hover:text-purple-300 transition-colors">
-                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-                    </svg>
-                </button>
+                {/* Header */}
+                <div className="bg-[#1a1a1a] p-4 flex items-center gap-3 border-b border-purple-500/20">
+                    <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-purple-500/30">
+                        <BotAvatar />
+                    </div>
+                    <div>
+                        <h3 className="text-white font-medium flex items-center gap-2">
+                            BotOverload.com
+                            <span className="px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 text-xs">
+                                PRO
+                            </span>
+                        </h3>
+                        <p className="text-purple-300/60 text-sm">Bulk Message Demo</p>
+                    </div>
+                </div>
+
+                {/* Chat Area */}
+                <div
+                    ref={chatContainerRef}
+                    className="h-[calc(100%-128px)] overflow-y-auto p-4 bg-[#0a0a0a] scroll-smooth"
+                >
+                    <AnimatePresence>
+                        {renderMessages()}
+                    </AnimatePresence>
+                    {showLoader && <BotLoader />}
+                </div>
+
+                {/* Input Area */}
+                <div className="absolute bottom-0 left-0 right-0 bg-[#1a1a1a] p-4 flex items-center gap-4 border-t border-purple-500/20">
+                    <button className="text-purple-400 hover:text-purple-300 transition-colors">
+                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z" />
+                        </svg>
+                    </button>
+                    <input
+                        type="text"
+                        placeholder="Type your message..."
+                        className="flex-1 bg-purple-900/20 text-white rounded-lg px-4 py-2 outline-none border border-purple-500/20 
+                                 placeholder-purple-300/40 focus:border-purple-500/40 transition-colors"
+                    />
+                    <button className="text-purple-400 hover:text-purple-300 transition-colors">
+                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                        </svg>
+                    </button>
+                </div>
+
+                {/* Phone Bottom Bar */}
+                <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gray-800 rounded-full"></div>
             </div>
         </div>
     );

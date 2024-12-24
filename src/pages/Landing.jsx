@@ -40,7 +40,7 @@ const Landing = () => {
 
 
         {/* Hero Section with Glass Effect */}
-        <section className="relative min-h-[70vh] pl-56 pt-[700px]">
+        <section className="relative min-h-[70vh] pl-4 pt-[700px]">
           <div className="w-full flex flex-col items-start space-y-0">
 
 
@@ -55,13 +55,13 @@ const Landing = () => {
           <div className="absolute inset-0 " />
 
           {/* Productivity Text and ShortcutsModal */}
-          <div className="relative z-10 mt-0 w-full max-w-7xl mx-auto">
-            <div className="flex flex-col md:flex-row justify-between items-start gap-8">
+          <div className="relative z-10 mt-0 w-full">
+            <div className="flex flex-col md:flex-row items-start gap-8">
               {/* Left side - Productivity Text */}
 
 
               {/* Right side - ShortcutsModal */}
-              <div className=" bg-black">
+              <div className="bg-black pl-4">
                 <AnimatedConnections />
               </div>
             </div>

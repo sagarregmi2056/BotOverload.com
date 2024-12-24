@@ -20,6 +20,7 @@ import BackgroundAnimation from "./components/BackgroundAnimation";
 import AnimatedConnections from "./components/AnimatedConnections";
 import MobileDevice from "./components/MobileDevice";
 import FlowingBackground from "./components/FlowingBackground";
+import HeroSection from './components/HeroSection';
 
 const AnimatedBackground = () => (
   <div className="fixed inset-0 -z-10">
@@ -75,7 +76,7 @@ const PageContainer = ({ children }) => (
     <motion.div
       whileHover={{ scale: 1.01 }}
       transition={{ type: "spring", stiffness: 200 }}
-      className="w-full max-w-7xl glass-morphism rounded-2xl p-8"
+      className="w-full max-w-7xl bg-black/50 rounded-2xl p-8 border border-purple-500/20"
     >
       {children}
     </motion.div>
@@ -103,59 +104,65 @@ const App = () => {
     <div className="relative min-h-screen">
       <GlowingClock />
 
-
-
       <div className="relative z-10">
         <Navbar />
 
+        {/* Hero Section with Phone and Content */}
+        <div className="bg-black min-h-screen">
+          <div className="max-w-7xl mx-auto flex flex-col items-center">
+            {/* New Hero Section */}
+            <HeroSection />
 
+            {/* Phone Demo Section */}
+            <div className="mt-20">
+              <div className="flex flex-row items-start gap-20">
+                <div className="ml-24">
+                  <div className="w-[320px]">
+                    <ShortcutsModal />
+                  </div>
+                </div>
 
-
-
-        <AnimatedConnections />
-
-
-
-
-        <PageContainer>
-
-          <Dashboard />
-
-
-
-        </PageContainer>
-
-
-
-        <FlowingBackground />
-        <PhoneLayout>
-
-          <PageContainer>
-
-            <ShortcutsModal />
-
-
-
-          </PageContainer>
-
-
-
-        </PhoneLayout>
-      </div>
-
-      <div className="relative z-0">
-
-
-
-
-
-        <div className="relative z-10 mt-10 ">
-          <MobileDevice />
+                {/* Stats Section */}
+                <div className="flex-1 pt-20">
+                  <div className="grid grid-cols-2 gap-8">
+                    {[
+                      { title: "Lightning Fast", value: "0.5s/message" },
+                      { title: "Success Rate", value: "99.9%" },
+                      { title: "Messages/Day", value: "100K+" },
+                      { title: "Active Users", value: "10K+" }
+                    ].map((stat, index) => (
+                      <motion.div
+                        key={stat.title}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.6 + index * 0.1 }}
+                        className="bg-purple-900/20 p-6 rounded-lg border border-purple-500/20"
+                      >
+                        <h3 className="text-purple-400 text-lg font-medium">{stat.title}</h3>
+                        <p className="text-white text-2xl font-bold">{stat.value}</p>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
+        {/* Rest of the sections with black background */}
+        <div className="bg-black">
+          <div className="max-w-7xl mx-auto">
+            <AnimatedConnections />
+          </div>
+        </div>
 
+        <div className="bg-black">
+          <PageContainer>
+            <Dashboard />
+          </PageContainer>
+        </div>
 
-
+        <FlowingBackground />
       </div>
     </div>
   );
