@@ -23,8 +23,8 @@ const companies = [
 
 const GlowingGif = styled.div`
   position: relative;
-  width: 900px;  // Increased size
-  height: 600px; // Increased size
+  width: 1000px;  // Further increased size
+  height: 700px;  // Further increased size
   margin: 20px auto;
   border-radius: 12px;
   overflow: hidden;
