@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import Dashboard from '../pages/Dashboard';
+import RocketAnimation from './RocketAnimation';
+import AnimatedBeam from './AnimatedBeam';
 
 const FlowingBackground = () => {
     const canvasRef = useRef(null);
@@ -271,11 +273,14 @@ const FlowingBackground = () => {
 
     return (
         <div className="relative h-screen w-full overflow-hidden">
+
             <canvas
                 ref={canvasRef}
                 className="absolute inset-0 z-0"
             />
+
             <div className="relative z-10 px-8 pt-16">
+
                 <h1 className="text-6xl font-bold text-white mb-4">Everything App</h1>
                 <h2 className="text-4xl font-bold text-white mb-8">for your teams</h2>
                 <p className="text-gray-300 text-xl mb-8 max-w-xl">
@@ -283,8 +288,12 @@ const FlowingBackground = () => {
                 </p>
                 <button className="px-6 py-3 bg-white rounded-full text-black font-semibold hover:bg-opacity-90 transition-all">
                     TRY IT FREE →
+
                 </button>
+
+
             </div>
+
 
         </div>
     );
