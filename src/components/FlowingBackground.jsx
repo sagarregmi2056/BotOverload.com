@@ -294,20 +294,20 @@ const FlowingBackground = () => {
             text: "This tool has completely transformed how we handle our social media presence. The automation is seamless!",
             author: "Sagar Regmi",
             role: "AI Developer",
-            image: "../public/testimonials/images.jpg"
+            image: "/testimonials/images.jpg"
         },
         {
             text: "The AI-powered features have saved us countless hours. Highly recommended!",
             author: "Mike R.",
             role: "Business Owner",
-            image: "../public/testimonials/purshotaam.jpg"
+            image: "/testimonials/purshotaam.jpg"
         }
         ,
         {
             text: "This is the best social media tool I've ever used. It's a game-changer!",
             author: "Pranesh shrestha",
             role: "Lead Engineer/Developer",
-            image: "../public/testimonials/pranesh.jpg"
+            image: "/testimonials/pranesh.jpg"
         }
     ];
 
