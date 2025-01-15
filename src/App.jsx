@@ -26,6 +26,7 @@ import PricingSection from './components/PricingSection';
 import Features from './components/Features';
 import Footer from './components/Footer';
 import BusinessAutomation from './components/BusinessAutomation';
+import Contact from './components/Contact';
 
 const AnimatedBackground = () => (
   <div className="fixed inset-0 -z-10">
@@ -180,6 +181,7 @@ const App = () => {
         </div>
 
         <FlowingBackground />
+        <Contact />
 
         <Footer />
       </div>
