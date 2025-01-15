@@ -1,23 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const AutomationStep = ({ step, title, description, delay }) => (
-    <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5, delay }}
-        className="flex items-start space-x-4"
-    >
-        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center">
-            <span className="text-white font-bold">{step}</span>
-        </div>
-        <div>
-            <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
-            <p className="text-gray-400">{description}</p>
-        </div>
-    </motion.div>
-);
-
 const ChatMessage = ({ message, isAi, delay }) => (
     <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -33,9 +16,9 @@ const ChatMessage = ({ message, isAi, delay }) => (
 );
 
 const BusinessAutomation = () => {
-    const [showChat, setShowChat] = useState(true);
-    const [showExcel, setShowExcel] = useState(false);
+    const [currentView, setCurrentView] = useState('chat');
     const [chatStep, setChatStep] = useState(0);
+    const [showExcel, setShowExcel] = useState(false);
 
     const chatMessages = [
         { message: "Hi! I'd like to place an order for 100 widgets.", isAi: false },
@@ -46,21 +29,61 @@ const BusinessAutomation = () => {
         { message: "Your order will be delivered within 3-5 business days. I'm updating our system now.", isAi: true },
     ];
 
+    const workflowSteps = [
+        {
+            title: "Natural Language Processing",
+            description: "AI processes customer messages and understands intent",
+            icon: "🧠"
+        },
+        {
+            title: "Data Validation",
+            description: "Verifies order details and customer information",
+            icon: "✓"
+        },
+        {
+            title: "Automated Processing",
+            description: "Updates inventory and creates order records",
+            icon: "⚙️"
+        },
+        {
+            title: "Integration",
+            description: "Syncs data across all business platforms",
+            icon: "🔄"
+        }
+    ];
+
+    // Function to reset and restart animation
+    const startAnimation = () => {
+        setCurrentView('chat');
+        setChatStep(0);
+        setShowExcel(false);
+    };
+
     useEffect(() => {
-        const chatTimer = setInterval(() => {
-            if (chatStep < chatMessages.length) {
-                setChatStep(prev => prev + 1);
-            } else {
-                clearInterval(chatTimer);
-                setTimeout(() => {
-                    setShowChat(false);
-                    setShowExcel(true);
-                }, 1000);
-            }
+        const timer = setInterval(() => {
+            setChatStep(prev => {
+                if (prev < chatMessages.length - 1) {
+                    return prev + 1;
+                } else {
+                    clearInterval(timer);
+                    setTimeout(() => {
+                        setShowExcel(true);
+                        setCurrentView('excel');
+                        setTimeout(() => {
+                            setShowExcel(false);
+                            setCurrentView('workflow');
+                            setTimeout(() => {
+                                startAnimation(); // Restart the animation
+                            }, 6000);
+                        }, 4000);
+                    }, 2000);
+                    return prev;
+                }
+            });
         }, 1500);
 
-        return () => clearInterval(chatTimer);
-    }, [chatStep]);
+        return () => clearInterval(timer);
+    }, [chatStep === 0]); // Dependency on chatStep reset to trigger new animation cycle
 
     return (
         <div className="py-20">
@@ -78,84 +101,58 @@ const BusinessAutomation = () => {
             </motion.div>
 
             <div className="max-w-4xl mx-auto">
-                <div className="grid gap-12">
-                    <AutomationStep
-                        step="1"
-                        title="Sign Up & Connect"
-                        description="Create your account and connect your business tools and platforms"
-                        delay={0.2}
-                    />
-                    <AutomationStep
-                        step="2"
-                        title="Name Your AI Agent"
-                        description="Personalize your AI assistant and set up its primary functions"
-                        delay={0.4}
-                    />
-                    <AutomationStep
-                        step="3"
-                        title="Business Information"
-                        description="Tell us about your business processes and automation needs"
-                        delay={0.6}
-                    />
-                    <AutomationStep
-                        step="4"
-                        title="AI Takes Control"
-                        description="Watch as our AI handles your tasks like order processing, data entry, and customer support"
-                        delay={0.8}
-                    />
-                </div>
-
-                {/* Enhanced Animation Preview */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
-                    transition={{ duration: 1, delay: 0.5 }}
+                    viewport={{ once: false }}
                     className="mt-16 p-8 rounded-xl bg-gray-900/50 border border-purple-500/20"
                 >
                     <div className="relative h-[500px]">
                         {/* Chat Interface */}
-                        <AnimatePresence>
-                            {showChat && (
+                        <AnimatePresence mode="wait">
+                            {currentView === 'chat' && (
                                 <motion.div
-                                    initial={{ opacity: 1 }}
+                                    key="chat"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
                                     className="absolute inset-0 flex items-center justify-center"
                                 >
                                     <div className="w-full max-w-md bg-gray-800/90 rounded-lg overflow-hidden">
-                                        {/* Chat Header */}
                                         <div className="bg-gray-700 p-3 flex items-center space-x-2">
                                             <div className="w-3 h-3 rounded-full bg-red-500"></div>
                                             <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                                             <div className="w-3 h-3 rounded-full bg-green-500"></div>
                                             <span className="text-gray-300 ml-2 text-sm">AI Chat Assistant</span>
                                         </div>
-
-                                        {/* Chat Messages */}
-                                        <div className="p-4 space-y-2 h-[400px] overflow-y-auto">
-                                            {chatMessages.slice(0, chatStep).map((msg, index) => (
-                                                <ChatMessage
-                                                    key={index}
-                                                    message={msg.message}
-                                                    isAi={msg.isAi}
-                                                    delay={index * 0.5}
-                                                />
-                                            ))}
+                                        <div className="p-4 space-y-2 h-[450px] overflow-y-auto scrollbar-hide">
+                                            <div className="flex flex-col justify-end min-h-full">
+                                                {chatMessages.slice(0, chatStep + 1).map((msg, index) => (
+                                                    <ChatMessage
+                                                        key={index}
+                                                        message={msg.message}
+                                                        isAi={msg.isAi}
+                                                        delay={index * 0.5}
+                                                    />
+                                                ))}
+                                            </div>
                                         </div>
                                     </div>
                                 </motion.div>
                             )}
                         </AnimatePresence>
 
-                        {/* Excel Sheet Animation */}
-                        <AnimatePresence>
-                            {showExcel && (
+                        {/* Excel Sheet */}
+                        <AnimatePresence mode="wait">
+                            {currentView === 'excel' && (
                                 <motion.div
+                                    key="excel"
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
                                     className="absolute inset-0 flex items-center justify-center"
                                 >
                                     <div className="w-full max-w-md bg-gray-800/90 rounded-lg overflow-hidden">
-                                        {/* Excel Header */}
                                         <div className="bg-gray-700 p-3 flex items-center space-x-2">
                                             <div className="w-3 h-3 rounded-full bg-red-500"></div>
                                             <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
@@ -163,16 +160,13 @@ const BusinessAutomation = () => {
                                             <span className="text-gray-300 ml-2 text-sm">Orders.xlsx</span>
                                         </div>
 
-                                        {/* Excel Content */}
                                         <div className="p-4 space-y-3">
-                                            {/* Headers */}
                                             <div className="flex space-x-4 border-b border-gray-600 pb-2">
                                                 <div className="w-24 text-sm text-gray-400">Order ID</div>
                                                 <div className="w-32 text-sm text-gray-400">Product</div>
                                                 <div className="w-24 text-sm text-gray-400">Quantity</div>
                                             </div>
 
-                                            {/* Existing Rows */}
                                             {[...Array(3)].map((_, index) => (
                                                 <motion.div
                                                     key={`existing-${index}`}
@@ -187,7 +181,6 @@ const BusinessAutomation = () => {
                                                 </motion.div>
                                             ))}
 
-                                            {/* New Order Row */}
                                             <motion.div
                                                 className="flex space-x-4"
                                                 initial={{ opacity: 0, backgroundColor: 'rgba(147, 51, 234, 0.2)' }}
@@ -198,6 +191,44 @@ const BusinessAutomation = () => {
                                                 <div className="w-32 text-sm text-purple-400">Widgets</div>
                                                 <div className="w-24 text-sm text-purple-400">100</div>
                                             </motion.div>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+
+                        {/* Workflow Steps */}
+                        <AnimatePresence mode="wait">
+                            {currentView === 'workflow' && (
+                                <motion.div
+                                    key="workflow"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="absolute inset-0 flex items-center justify-center"
+                                >
+                                    <div className="w-full max-w-md">
+                                        <h3 className="text-2xl font-bold text-white text-center mb-8">
+                                            How BotOverload Works
+                                        </h3>
+                                        <div className="space-y-6">
+                                            {workflowSteps.map((step, index) => (
+                                                <motion.div
+                                                    key={index}
+                                                    initial={{ opacity: 0, x: -20 }}
+                                                    animate={{ opacity: 1, x: 0 }}
+                                                    transition={{ delay: index * 0.5 }}
+                                                    className="flex items-center space-x-4 bg-gray-800/50 p-4 rounded-lg border border-purple-500/20"
+                                                >
+                                                    <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center text-2xl">
+                                                        {step.icon}
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="text-white font-semibold">{step.title}</h4>
+                                                        <p className="text-gray-400 text-sm">{step.description}</p>
+                                                    </div>
+                                                </motion.div>
+                                            ))}
                                         </div>
                                     </div>
                                 </motion.div>
@@ -217,13 +248,30 @@ const BusinessAutomation = () => {
                     </div>
 
                     <div className="text-center mt-6 space-y-2">
-                        <p className="text-purple-400 font-medium">Real-time AI Processing</p>
-                        <p className="text-gray-400 text-sm">Watch as our AI handles customer interactions and automatically updates your business data</p>
+                        <p className="text-purple-400 font-medium">
+                            {currentView === 'workflow' ? 'AI-Powered Workflow' : 'Real-time AI Processing'}
+                        </p>
+                        <p className="text-gray-400 text-sm">
+                            {currentView === 'workflow'
+                                ? 'See how our AI processes and handles your business operations'
+                                : 'Watch as our AI handles customer interactions and automatically updates your business data'}
+                        </p>
                     </div>
                 </motion.div>
             </div>
         </div>
     );
 };
+
+// Add this CSS to your global styles or component
+const styles = `
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+`;
 
 export default BusinessAutomation; 
