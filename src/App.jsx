@@ -21,6 +21,11 @@ import AnimatedConnections from "./components/AnimatedConnections";
 import MobileDevice from "./components/MobileDevice";
 import FlowingBackground from "./components/FlowingBackground";
 import HeroSection from './components/HeroSection';
+import HowItWorks from './components/HowItWorks';
+import PricingSection from './components/PricingSection';
+import Features from './components/Features';
+import Footer from './components/Footer';
+import BusinessAutomation from './components/BusinessAutomation';
 
 const AnimatedBackground = () => (
   <div className="fixed inset-0 -z-10">
@@ -110,7 +115,7 @@ const App = () => {
         {/* Hero Section with Phone and Content */}
         <div className="bg-black min-h-screen">
           <div className="max-w-7xl mx-auto flex flex-col items-center">
-            {/* New Hero Section */}
+            {/* Hero Section */}
             <HeroSection />
 
             {/* Phone Demo Section */}
@@ -146,6 +151,18 @@ const App = () => {
                 </div>
               </div>
             </div>
+
+            {/* How It Works Section */}
+            <HowItWorks />
+
+            {/* Features Section */}
+            <Features />
+
+            {/* Pricing Section */}
+            <PricingSection />
+
+            {/* Business Automation Section */}
+            <BusinessAutomation />
           </div>
         </div>
 
@@ -163,6 +180,8 @@ const App = () => {
         </div>
 
         <FlowingBackground />
+
+        <Footer />
       </div>
     </div>
   );
