@@ -292,15 +292,22 @@ const FlowingBackground = () => {
     const testimonials = [
         {
             text: "This tool has completely transformed how we handle our social media presence. The automation is seamless!",
-            author: "Sarah J.",
-            role: "Marketing Director",
-            image: "/images/testimonials/sarah.jpg"
+            author: "Sagar Regmi",
+            role: "AI Developer",
+            image: "../src/assets/testimonials/images.jpg"
         },
         {
             text: "The AI-powered features have saved us countless hours. Highly recommended!",
             author: "Mike R.",
-            role: "Social Media Manager",
-            image: "/images/testimonials/mike.jpg"
+            role: "Business Owner",
+            image: "../src/assets/testimonials/purshotaam.jpg"
+        }
+        ,
+        {
+            text: "This is the best social media tool I've ever used. It's a game-changer!",
+            author: "Pranesh shrestha",
+            role: "Lead Engineer/Developer",
+            image: "../src/assets/testimonials/pranesh.jpg"
         }
     ];
 
