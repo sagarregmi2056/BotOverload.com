@@ -1,10 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+import CountUp from 'react-countup';
 import Dashboard from '../pages/Dashboard';
 import RocketAnimation from './RocketAnimation';
 import AnimatedBeam from './AnimatedBeam';
 
 const FlowingBackground = () => {
     const canvasRef = useRef(null);
+    const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -28,7 +31,7 @@ const FlowingBackground = () => {
             }
 
             reset() {
-                const beamX = canvas.width * 0.65;
+                const beamX = canvas.width * 0.85;
                 const offset = this.side === 'left' ? -15 : 15;
                 this.x = beamX + offset;
                 this.y = -50;
@@ -48,13 +51,12 @@ const FlowingBackground = () => {
             }
 
             update() {
-                const beamX = canvas.width * 0.65;
+                const beamX = canvas.width * 0.85;
                 const curveStartY = canvas.height * 0.7;
-                const dashboardY = canvas.height - 60; // Adjusted to better match dashboard position
+                const dashboardY = canvas.height - 60;
 
                 switch (this.state) {
                     case 'falling': {
-                        // Faster downward movement
                         this.y += this.speed * 1.5;
                         const wobble = Math.sin(time * 0.01 + this.colorPhase) * 1;
                         if (this.side === 'left') {
@@ -71,25 +73,23 @@ const FlowingBackground = () => {
                     }
                     case 'curving': {
                         const curveProgress = (this.y - curveStartY) / (dashboardY - curveStartY);
-                        const targetX = beamX + (this.side === 'left' ? -100 : 200); // Wider spread
+                        const targetX = beamX + (this.side === 'left' ? -100 : 200);
                         const targetY = dashboardY;
 
-                        // Smoother curve transition
                         this.x += (targetX - this.x) * 0.08;
                         this.y += (targetY - this.y) * 0.1;
 
                         if (this.y >= dashboardY - 5) {
                             this.state = 'spreading';
                             this.dashboardY = dashboardY;
-                            this.spreadSpeed *= 1.5; // Faster spread along dashboard
+                            this.spreadSpeed *= 1.5;
                         }
                         break;
                     }
                     case 'spreading': {
-                        // More horizontal movement along dashboard
                         this.x += this.spreadDirection * this.spreadSpeed;
                         this.y = this.dashboardY + Math.sin(time * 0.02 + this.colorPhase) * 3;
-                        this.alpha *= 0.97; // Slightly faster fade
+                        this.alpha *= 0.97;
                         this.size = Math.min(this.size * 1.02, this.maxSize);
                         break;
                     }
@@ -142,7 +142,6 @@ const FlowingBackground = () => {
                 const secondaryFactor = (Math.cos(this.colorPhase * 0.5) + 1) / 2;
                 const tertiaryFactor = (Math.sin(this.colorPhase * 0.3) + 1) / 2;
 
-                // Mix with dark colors for better background integration
                 let baseColor;
                 if (this.state === 'spreading') {
                     baseColor = mixMultiple(
@@ -156,13 +155,11 @@ const FlowingBackground = () => {
                     );
                 }
 
-                // Add dark gradient to edges
                 const gradient = ctx.createRadialGradient(
                     this.x, this.y, 0,
                     this.x, this.y, this.size * 1.5
                 );
 
-                // More gradual color transition with darker edges
                 gradient.addColorStop(0, `rgba(${baseColor.join(',')}, ${this.alpha * 0.9})`);
                 gradient.addColorStop(0.3, `rgba(${baseColor.join(',')}, ${this.alpha * 0.5})`);
                 gradient.addColorStop(0.7, `rgba(${mix(baseColor, [20, 30, 70], 0.7).join(',')}, ${this.alpha * 0.3})`);
@@ -181,7 +178,7 @@ const FlowingBackground = () => {
         ];
 
         const drawBackground = () => {
-            const beamX = canvas.width * 0.65;
+            const beamX = canvas.width * 0.85;
 
             const bgGradient = ctx.createRadialGradient(
                 beamX, canvas.height * 0.5, 0,
@@ -196,7 +193,7 @@ const FlowingBackground = () => {
         };
 
         const drawBeam = () => {
-            const beamX = canvas.width * 0.65;
+            const beamX = canvas.width * 0.85;
             const curveStartY = canvas.height * 0.7;
 
             const beamLayers = [
@@ -271,30 +268,148 @@ const FlowingBackground = () => {
         return () => window.removeEventListener('resize', setCanvasSize);
     }, []);
 
+    const stats = [
+        {
+            number: "1000+",
+            label: "Active Users",
+            prefix: "",
+            suffix: "+"
+        },
+        {
+            number: "99",
+            label: "Time Saved",
+            prefix: "",
+            suffix: "%"
+        },
+        {
+            number: "24/7",
+            label: "Support Available",
+            prefix: "",
+            suffix: ""
+        }
+    ];
+
+    const testimonials = [
+        {
+            text: "This tool has completely transformed how we handle our social media presence. The automation is seamless!",
+            author: "Sarah J.",
+            role: "Marketing Director",
+            image: "/images/testimonials/sarah.jpg"
+        },
+        {
+            text: "The AI-powered features have saved us countless hours. Highly recommended!",
+            author: "Mike R.",
+            role: "Social Media Manager",
+            image: "/images/testimonials/mike.jpg"
+        }
+    ];
+
     return (
-        <div className="relative h-screen w-full overflow-hidden">
+        <div className="relative min-h-screen bg-black overflow-hidden">
+            <canvas ref={canvasRef} className="absolute inset-0" />
 
-            <canvas
-                ref={canvasRef}
-                className="absolute inset-0 z-0"
-            />
+            <div className="relative z-10 container mx-auto px-4">
+                <div className="relative z-10 pt-20 pb-16 text-left max-w-2xl">
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-blue-500 to-purple-600 bg-clip-text text-transparent"
+                    >
+                        Automate Your Social Media
+                    </motion.h1>
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                        className="text-xl text-gray-300 mb-12"
+                    >
+                        Streamline your social media management with AI-powered automation.
+                        Save time, boost engagement, and grow your presence.
+                    </motion.p>
+                </div>
 
-            <div className="relative z-10 px-8 pt-16">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    viewport={{ once: true }}
+                    className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mb-16"
+                >
+                    {stats.map((stat, index) => (
+                        <div key={index} className="text-center">
+                            <motion.div
+                                initial={{ scale: 0.5, opacity: 0 }}
+                                whileInView={{ scale: 1, opacity: 1 }}
+                                transition={{ duration: 0.5, delay: index * 0.2 }}
+                                className="text-4xl md:text-5xl font-bold text-purple-500 mb-2"
+                            >
+                                {stat.number === "24/7" ? (
+                                    "24/7"
+                                ) : (
+                                    <CountUp
+                                        end={parseInt(stat.number)}
+                                        suffix={stat.suffix}
+                                        prefix={stat.prefix}
+                                        duration={2.5}
+                                        enableScrollSpy
+                                    />
+                                )}
+                            </motion.div>
+                            <p className="text-gray-400">{stat.label}</p>
+                        </div>
+                    ))}
+                </motion.div>
 
-                <h1 className="text-6xl font-bold text-white mb-4">Everything App</h1>
-                <h2 className="text-4xl font-bold text-white mb-8">for your teams</h2>
-                <p className="text-gray-300 text-xl mb-8 max-w-xl">
-                    Platform that serves as an all-in-one replacement for your workflow needs.
-                </p>
-                <button className="px-6 py-3 bg-white rounded-full text-black font-semibold hover:bg-opacity-90 transition-all">
-                    TRY IT FREE →
+                <div className="relative z-10 py-16">
+                    <h2 className="text-3xl font-bold text-left text-white mb-12">What Our Users Say</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl">
+                        {testimonials.map((testimonial, index) => (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.8, delay: index * 0.2 }}
+                                className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10"
+                            >
+                                <p className="text-gray-300 mb-6">{testimonial.text}</p>
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-purple-500">
+                                        <img
+                                            src={testimonial.image}
+                                            alt={testimonial.author}
+                                            className="w-full h-full object-cover"
+                                            onError={(e) => {
+                                                e.target.onerror = null;
+                                                e.target.parentElement.innerHTML = `
+                                                    <div class="w-full h-full bg-purple-600 flex items-center justify-center text-white text-lg font-bold">
+                                                        ${testimonial.author.split(' ').map(n => n[0]).join('')}
+                                                    </div>
+                                                `;
+                                            }}
+                                        />
+                                    </div>
+                                    <div>
+                                        <p className="text-purple-400 font-semibold">{testimonial.author}</p>
+                                        <p className="text-gray-500 text-sm">{testimonial.role}</p>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
 
-                </button>
-
-
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="relative z-10 text-left py-16"
+                >
+                    <button className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105">
+                        Get Started Free
+                    </button>
+                </motion.div>
             </div>
-
-
         </div>
     );
 };
