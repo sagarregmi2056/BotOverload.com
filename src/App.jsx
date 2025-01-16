@@ -141,7 +141,7 @@ const App = () => {
         {/* 3D Model */}
         <ErrorBoundary>
           <div className="absolute inset-0">
-            <Model3D modelPath="/models/model.glb" />
+            {/* <Model3D modelPath="/models/model.glb" /> */}
           </div>
         </ErrorBoundary>
 

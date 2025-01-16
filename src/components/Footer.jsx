@@ -26,15 +26,7 @@ const Footer = () => {
                     </div>
 
                     {/* Resources */}
-                    <div>
-                        <h4 className="text-lg font-medium text-white mb-4">Resources</h4>
-                        <ul className="space-y-2">
-                            <li><a href="/docs" className="hover:text-purple-400 transition-colors">Documentation</a></li>
-                            <li><a href="/api" className="hover:text-purple-400 transition-colors">API Reference</a></li>
-                            <li><a href="/blog" className="hover:text-purple-400 transition-colors">Blog</a></li>
-                            <li><a href="/support" className="hover:text-purple-400 transition-colors">Support</a></li>
-                        </ul>
-                    </div>
+
 
                     {/* Stay Updated */}
                     <div>

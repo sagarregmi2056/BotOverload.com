@@ -61,7 +61,9 @@ const Navbar = () => {
                 whileHover={{ scale: 1.05 }}
                 className="flex-shrink-0"
               >
-                <img src="/public/testimonials/logo.png" alt="Bot Overload Logo" className="w-12 h-12" />
+                <span className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+                  Bot Overload
+                </span>
 
               </motion.div>
 
