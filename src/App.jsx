@@ -27,6 +27,10 @@ import Features from './components/Features';
 import Footer from './components/Footer';
 import BusinessAutomation from './components/BusinessAutomation';
 import Contact from './components/Contact';
+import { useCounterAnimation } from './hooks/useCounterAnimation';
+import Model3D from './components/Model3D';
+import ErrorBoundary from './components/ErrorBoundary';
+import { DiscordIcon } from './components/DiscordIcon';
 
 const AnimatedBackground = () => (
   <div className="fixed inset-0 -z-10">
@@ -89,6 +93,28 @@ const PageContainer = ({ children }) => (
   </motion.div>
 );
 
+const StatCard = ({ title, value, suffix = "", delay = 0 }) => {
+  const count = useCounterAnimation(
+    parseInt(value.replace(/[^0-9]/g, '')),
+    2000,
+    0
+  );
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay }}
+      className="bg-purple-900/20 p-6 rounded-lg border border-purple-500/20"
+    >
+      <h3 className="text-purple-400 text-lg font-medium">{title}</h3>
+      <p className="text-white text-2xl font-bold">
+        {count}{suffix}
+      </p>
+    </motion.div>
+  );
+};
+
 const App = () => {
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -107,91 +133,148 @@ const App = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-black">
+    <div className="relative min-h-screen bg-black overflow-hidden">
       <Navbar />
-      <div className="relative z-10 bg-black">
-        <GlowingClock />
-        {/* Hero Section with Phone and Content */}
-        <div className="bg-black min-h-screen">
-          <div className="max-w-7xl mx-auto flex flex-col items-center">
-            {/* Hero Section */}
-            <section id="home">
-              <HeroSection />
-            </section>
 
-            {/* Phone Demo Section */}
-            <div className="mt-20">
-              <div className="flex flex-row items-start gap-20">
-                <div className="ml-24">
-                  <div className="w-[320px]">
-                    <ShortcutsModal />
-                  </div>
+      {/* Hero Section */}
+      <div className="relative min-h-[70vh]">
+        {/* 3D Model */}
+        <ErrorBoundary>
+          <div className="absolute inset-0">
+            <Model3D modelPath="/models/model.glb" />
+          </div>
+        </ErrorBoundary>
+
+        {/* Welcome Text - Centered */}
+        <div className="relative z-10 flex items-center justify-center min-h-[70vh]">
+          <div className="max-w-3xl mx-auto px-4 text-center">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-6xl font-bold bg-gradient-to-r from-[#4da6ff] via-[#a98eff] to-[#c18fff] bg-clip-text text-transparent mb-6"
+            >
+              Revolutionize Your Automation
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-gray-300 text-xl mb-8"
+            >
+              <p className="text-gray-300 text-xl mb-8">
+                <span className="text-white px-2 py-1 rounded">
+                  Transform your business with AI-powered social automation. BotOverload seamlessly
+                  connects and manages all your platforms, making digital productivity effortless.
+                </span>
+              </p>
+
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="flex gap-4 justify-center"
+            >
+
+              <button className="bg-black/30 text-white px-8 py-3 rounded-full font-medium border border-[#a98eff]/30 hover:bg-black/50 transition-colors flex items-center gap-2">
+                JOIN OUR DISCORD
+                <DiscordIcon />
+              </button>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
+      {/* Rest of your content */}
+      <div className="bg-black">
+        <div className="max-w-7xl mx-auto">
+          {/* Hero Section */}
+          <section id="home">
+            <HeroSection />
+          </section>
+
+          {/* Phone Demo Section */}
+          <div className="mt-2">
+            <div className="flex flex-row items-start gap-20">
+              <div className="ml-24">
+                <div className="w-[320px]">
+                  <ShortcutsModal />
                 </div>
+              </div>
 
-                {/* Stats Section */}
-                <div className="flex-1 pt-20">
-                  <div className="grid grid-cols-2 gap-8">
-                    {[
-                      { title: "Lightning Fast", value: "0.5s/message" },
-                      { title: "Success Rate", value: "99.9%" },
-                      { title: "Messages/Day", value: "100K+" },
-                      { title: "Active Users", value: "10K+" }
-                    ].map((stat, index) => (
-                      <motion.div
-                        key={stat.title}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.6 + index * 0.1 }}
-                        className="bg-purple-900/20 p-6 rounded-lg border border-purple-500/20"
-                      >
-                        <h3 className="text-purple-400 text-lg font-medium">{stat.title}</h3>
-                        <p className="text-white text-2xl font-bold">{stat.value}</p>
-                      </motion.div>
-                    ))}
-                  </div>
+              {/* Stats Section */}
+              <div id="stats-section" className="flex-1 pt-20">
+                <div className="grid grid-cols-2 gap-8">
+                  <StatCard
+                    title="Lightning Fast"
+                    value="0.5"
+                    suffix="s/message"
+                    delay={0.6}
+                  />
+                  <StatCard
+                    title="Success Rate"
+                    value="99.9"
+                    suffix="%"
+                    delay={0.7}
+                  />
+                  <StatCard
+                    title="Messages/Day"
+                    value="100000"
+                    suffix="+"
+                    delay={0.8}
+                  />
+                  <StatCard
+                    title="Active Users"
+                    value="10000"
+                    suffix="+"
+                    delay={0.9}
+                  />
                 </div>
               </div>
             </div>
-
-            {/* How It Works Section */}
-            <HowItWorks />
-
-            {/* Features Section */}
-            <section id="features">
-              <Features />
-            </section>
-
-            {/* Pricing Section */}
-            <section id="pricingSection">
-              <PricingSection />
-            </section>
-
-            {/* Business Automation Section */}
-            <BusinessAutomation />
           </div>
+
+          {/* How It Works Section */}
+          <HowItWorks />
+
+          {/* Features Section */}
+          <section id="features">
+            <Features />
+          </section>
+
+          {/* Pricing Section */}
+          <section id="pricingSection">
+            <PricingSection />
+          </section>
+
+          {/* Business Automation Section */}
+          <BusinessAutomation />
         </div>
-
-        {/* Rest of the sections with black background */}
-        <div className="bg-black">
-          <div className="max-w-7xl mx-auto">
-            <AnimatedConnections />
-          </div>
-        </div>
-
-        <div className="bg-black">
-          <PageContainer>
-            <Dashboard />
-          </PageContainer>
-        </div>
-
-        <FlowingBackground />
-
-        <section id="contact">
-          <Contact />
-        </section>
-
-        <Footer />
       </div>
+
+      {/* Rest of the sections with black background */}
+      <div className="bg-black">
+        <div className="max-w-7xl mx-auto">
+          <AnimatedConnections />
+        </div>
+      </div>
+
+      <div className="bg-black">
+        <PageContainer>
+          <Dashboard />
+        </PageContainer>
+      </div>
+
+      <FlowingBackground />
+
+      <section id="contact">
+        <Contact />
+      </section>
+
+      <Footer />
     </div>
   );
 };

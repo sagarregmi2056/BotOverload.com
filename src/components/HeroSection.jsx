@@ -83,7 +83,7 @@ const HeroSection = () => {
                     >
                         <h1 className="text-6xl md:text-7xl font-bold">
                             <span className="bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
-                                Bot Overload is the new way
+                                BotOverload is the new way
                             </span>
                             <br />
                             <span className="text-white">
@@ -104,7 +104,7 @@ const HeroSection = () => {
                         className="flex justify-center gap-6"
                     >
                         <button className="px-12 py-4 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition-colors text-lg font-medium">
-                            Get Started for free
+                            Build your custom bot
                         </button>
                         <button className="px-12 py-4 border-2 border-purple-500 text-purple-400 rounded-xl hover:bg-purple-900/30 transition-colors text-lg font-medium">
                             View Demo

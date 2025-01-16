@@ -431,3 +431,9 @@ body {
   mix-blend-mode: screen;
   filter: blur(10px);
 }
+
+
+
+.stat-number {
+  animation: countUp 0.5s ease-out forwards;
+}
