@@ -107,17 +107,17 @@ const App = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen">
-      <GlowingClock />
-
-      <div className="relative z-10">
-        <Navbar />
-
+    <div className="relative min-h-screen bg-black">
+      <Navbar />
+      <div className="relative z-10 bg-black">
+        <GlowingClock />
         {/* Hero Section with Phone and Content */}
         <div className="bg-black min-h-screen">
           <div className="max-w-7xl mx-auto flex flex-col items-center">
             {/* Hero Section */}
-            <HeroSection />
+            <section id="home">
+              <HeroSection />
+            </section>
 
             {/* Phone Demo Section */}
             <div className="mt-20">
@@ -157,10 +157,14 @@ const App = () => {
             <HowItWorks />
 
             {/* Features Section */}
-            <Features />
+            <section id="features">
+              <Features />
+            </section>
 
             {/* Pricing Section */}
-            <PricingSection />
+            <section id="pricingSection">
+              <PricingSection />
+            </section>
 
             {/* Business Automation Section */}
             <BusinessAutomation />
@@ -181,7 +185,10 @@ const App = () => {
         </div>
 
         <FlowingBackground />
-        <Contact />
+
+        <section id="contact">
+          <Contact />
+        </section>
 
         <Footer />
       </div>
