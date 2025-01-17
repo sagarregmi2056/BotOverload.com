@@ -107,7 +107,7 @@ const HeroSection = () => {
                             Build your custom bot
                         </button>
                         <button className="px-12 py-4 border-2 border-purple-500 text-purple-400 rounded-xl hover:bg-purple-900/30 transition-colors text-lg font-medium">
-                            View Demo
+                            Join our Wishlist
                         </button>
                     </motion.div>
 
