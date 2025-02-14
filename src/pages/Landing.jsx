@@ -46,6 +46,8 @@ const Landing = () => {
 
             {/* AnimatedConnections directly below */}
 
+
+
           </div>
         </section>
 

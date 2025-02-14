@@ -165,18 +165,13 @@ const App = () => {
 
   return (
     <div className="relative min-h-screen bg-black overflow-hidden">
-      {/* Background layer */}
-      {/* <div className="fixed inset-0 bg-black -z-20"></div> */}
-
-      {/* Animation layer */}
-
-      <div className="relative z-[40]">
+      {/* Background layer - make sure it doesn't block interactions */}
+      <div className="fixed inset-0 bg-black -z-20 pointer-events-none">
         <AnimatedBackground />
       </div>
 
-
-      {/* Content layer */}
-      <div className="relative z-10">
+      {/* Content layer - should receive all interactions */}
+      <div className="relative z-10 pointer-events-auto">
         <Navbar />
 
         {/* Hero Section */}
@@ -231,8 +226,8 @@ const App = () => {
           </div>
         </div>
 
-        {/* Rest of your content */}
-        <div className="bg-black">
+        {/* Make sure other sections can receive interactions */}
+        <div className="bg-black pointer-events-auto">
           <div className="max-w-7xl mx-auto">
             {/* Hero Section */}
             <section id="home">
@@ -311,7 +306,7 @@ const App = () => {
           </PageContainer>
         </div>
 
-        <FlowingBackground />
+        <FlowingBackground className="pointer-events-none" />
 
         <section id="contact">
           <Contact />

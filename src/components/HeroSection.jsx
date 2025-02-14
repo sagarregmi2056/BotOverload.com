@@ -103,9 +103,14 @@ const HeroSection = () => {
                         transition={{ duration: 0.8, delay: 0.2 }}
                         className="flex justify-center gap-6"
                     >
-                        <button className="px-12 py-4 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition-colors text-lg font-medium">
+                        <a
+                            href="https://botoverload-whatsappservice.vercel.app/#/login"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-12 py-4 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition-colors text-lg font-medium inline-block cursor-pointer"
+                        >
                             Build your custom bot
-                        </button>
+                        </a>
                         <button className="px-12 py-4 border-2 border-purple-500 text-purple-400 rounded-xl hover:bg-purple-900/30 transition-colors text-lg font-medium">
                             Join our Wishlist
                         </button>
