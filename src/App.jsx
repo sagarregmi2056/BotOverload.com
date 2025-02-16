@@ -31,6 +31,7 @@ import { useCounterAnimation } from './hooks/useCounterAnimation';
 import Model3D from './components/Model3D';
 import ErrorBoundary from './components/ErrorBoundary';
 import { DiscordIcon } from './components/DiscordIcon';
+import Boticon from './components/Boticon';
 
 const MessageLoadingAnimation = () => {
   return (
@@ -216,11 +217,17 @@ const App = () => {
                 transition={{ duration: 0.8, delay: 0.4 }}
                 className="flex gap-4 justify-center"
               >
+                <a href="https://agents.botoverload.com" target="_blank" rel="noopener noreferrer">
+                  <button className="bg-purple-900 text-white px-8 py-3 rounded-full font-bold border border-[#a98eff]/30 hover:bg-black/50 transition-colors hover:border-[#a98eff]/50 flex items-center gap-2">
+                    Build Your Bot
 
-                <button className="bg-black/30 text-white px-8 py-3 rounded-full font-medium border border-[#a98eff]/30 hover:bg-black/50 transition-colors flex items-center gap-2">
-                  JOIN OUR DISCORD
-                  <DiscordIcon />
-                </button>
+                    <Boticon />
+                    {/* add bot icon here */}
+
+                  </button>
+                </a>
+
+
               </motion.div>
             </div>
           </div>

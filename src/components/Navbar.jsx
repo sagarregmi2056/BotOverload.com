@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Boticon from "./Boticon";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -54,16 +55,16 @@ const Navbar = () => {
         }`}>
         <div className={`backdrop-blur-xl ${scrolled ? 'bg-black/50' : 'bg-black/30'
           } border-b border-white/[0.05]`}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16">
+          <div className="max-w-7xl  mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-22">
               {/* Logo */}
+
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="flex-shrink-0"
+                className="flex-shrink-0 mt-14"
               >
-                <span className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-                  Bot Overload
-                </span>
+                <Boticon />
+                <span className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">Bot Overload</span>
 
               </motion.div>
 
