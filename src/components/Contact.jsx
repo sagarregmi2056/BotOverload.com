@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { submitContactForm } from '../services/api';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -32,12 +34,45 @@ const Contact = () => {
                 phone: '',
                 subject: '',
                 message: ''
-            }); // Clear form
+            });
 
-            // Optional: Show success message
-            alert('Thank you for your message! We will get back to you soon.');
+            // Success toast
+            toast.success('Message sent successfully! We will get back to you soon.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                style: {
+                    background: '#1a1a1a',
+                    color: '#fff',
+                    borderRadius: '8px',
+                    border: '1px solid rgba(255, 255, 255, 0.1)'
+                }
+            });
         } catch (error) {
             setFormStatus({ loading: false, error: error.message, success: false });
+
+            // Error toast
+            toast.error(error.message || 'Failed to send message. Please try again.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                style: {
+                    background: '#1a1a1a',
+                    color: '#fff',
+                    borderRadius: '8px',
+                    border: '1px solid rgba(255, 255, 255, 0.1)'
+                }
+            });
         }
     };
 
@@ -52,39 +87,21 @@ const Contact = () => {
         <div className="min-h-screen bg-black py-20 px-4">
             <div className="max-w-6xl mx-auto">
                 {/* Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="text-center mb-16"
-                >
+                <div className="text-center mb-16">
                     <h2 className="text-4xl font-bold text-white mb-4">Contact Us</h2>
                     <div className="w-24 h-1 bg-purple-500 mx-auto mb-8"></div>
                     <p className="text-gray-300 max-w-2xl mx-auto">
-                        Have questions about Bot Overload? We're here to help. Our team will get back to
-                        you within 24 hours.
+                        Have questions about Bot Overload? We're here to help. Our team will get back to you within 24 hours.
                     </p>
-                </motion.div>
+                </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {/* Contact Info */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="rounded-2xl p-8 relative overflow-hidden"
-                        style={{
-                            background: 'linear-gradient(145deg, rgba(17, 17, 17, 0.9) 0%, rgba(35, 35, 35, 0.9) 100%)',
-                            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-                            backdropFilter: 'blur(10px)',
-                            border: '1px solid rgba(255, 255, 255, 0.1)'
-                        }}
-                    >
-                        {/* Add subtle gradient overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent pointer-events-none"></div>
+                    {/* Left Side - Business Info & Contacts */}
+                    <div className="rounded-2xl p-8 relative overflow-hidden bg-[#111111]">
+                        <h3 className="text-2xl font-semibold text-white mb-8">Get in Touch</h3>
 
-                        <h3 className="text-2xl font-semibold text-white mb-8 relative z-10">Get in Touch</h3>
-                        <div className="space-y-6">
+                        {/* Contact Information */}
+                        <div className="space-y-6 mb-8">
                             <div className="flex items-center space-x-4 text-gray-300">
                                 <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center">
                                     <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -118,83 +135,70 @@ const Contact = () => {
                                 </div>
                                 <div>
                                     <p className="text-gray-400">Location</p>
-                                    <p className="text-white">Dubai Marina, Dubai,<br /> UAE</p>
+                                    <p className="text-white">Dubai Marina, Dubai, UAE</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="mt-12">
-                            <h4 className="text-xl font-semibold text-white mb-6">Follow Us</h4>
+                        {/* Social Media Links */}
+                        <div className="mt-8">
+                            <h4 className="text-lg font-medium text-white mb-4">Follow Us</h4>
                             <div className="flex space-x-4">
-                                <a
-                                    href="#"
-                                    className="w-10 h-10 rounded-full bg-black/30 flex items-center justify-center text-purple-400 hover:bg-purple-600 hover:text-white transition-all duration-300"
-                                >
+                                <a href="" className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-400 hover:bg-purple-500/20 transition-colors">
                                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
+                                        <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
                                     </svg>
                                 </a>
-                                <a
-                                    href="#"
-                                    className="w-10 h-10 rounded-full bg-black/30 flex items-center justify-center text-purple-400 hover:bg-purple-600 hover:text-white transition-all duration-300"
-                                >
+                                <a href="#" className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-400 hover:bg-purple-500/20 transition-colors">
                                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
+                                        <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
                                     </svg>
                                 </a>
-                                <a
-                                    href="#"
-                                    className="w-10 h-10 rounded-full bg-black/30 flex items-center justify-center text-purple-400 hover:bg-purple-600 hover:text-white transition-all duration-300"
-                                >
+                                <a href="" className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-400 hover:bg-purple-500/20 transition-colors">
                                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                                        <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
-                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                                        <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
+                                        <circle cx="4" cy="4" r="2"></circle>
                                     </svg>
                                 </a>
-                                <a
-                                    href="#"
-                                    className="w-10 h-10 rounded-full bg-black/30 flex items-center justify-center text-purple-400 hover:bg-purple-600 hover:text-white transition-all duration-300"
-                                >
+
+
+                                <a href="https://www.instagram.com/bot_overload/" className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-400 hover:bg-purple-500/20 transition-colors">
                                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" />
-                                        <rect x="2" y="9" width="4" height="12" />
-                                        <circle cx="4" cy="4" r="2" />
+                                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
                                     </svg>
                                 </a>
                             </div>
                         </div>
-                    </motion.div>
 
-                    {/* Contact Form */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="rounded-2xl p-8 relative overflow-hidden"
-                        style={{
-                            background: 'linear-gradient(145deg, rgba(17, 17, 17, 0.9) 0%, rgba(35, 35, 35, 0.9) 100%)',
-                            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-                            backdropFilter: 'blur(10px)',
-                            border: '1px solid rgba(255, 255, 255, 0.1)'
-                        }}
-                    >
-                        {/* Add subtle gradient overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent pointer-events-none"></div>
+                        {/* Business Hours */}
+                        <div className="mt-8">
+                            <h4 className="text-lg font-medium text-white mb-4">Business Hours</h4>
+                            <div className="space-y-2 text-gray-300">
+                                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                                <p>Saturday: 10:00 AM - 4:00 PM</p>
+                                <p>Sunday: Closed</p>
+                            </div>
+                        </div>
+                    </div>
 
-                        <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                <div>
-                                    <label className="block text-gray-300 text-sm font-medium mb-2">Full Name</label>
-                                    <input
-                                        type="text"
-                                        name="fullName"
-                                        value={formData.fullName}
-                                        onChange={handleChange}
-                                        className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white transition-all"
-                                        required
-                                    />
-                                </div>
+                    {/* Right Side - Contact Form */}
+                    <div className="rounded-2xl p-8 relative overflow-hidden bg-[#111111]">
+                        <form onSubmit={handleSubmit} className="space-y-6">
+                            {/* Full Name field */}
+                            <div>
+                                <label className="block text-gray-300 text-sm font-medium mb-2">Full Name</label>
+                                <input
+                                    type="text"
+                                    name="fullName"
+                                    value={formData.fullName}
+                                    onChange={handleChange}
+                                    className="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-800 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white"
+                                    required
+                                />
+                            </div>
+
+                            {/* Email and Phone fields */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label className="block text-gray-300 text-sm font-medium mb-2">Business Email Address</label>
                                     <input
@@ -202,7 +206,7 @@ const Contact = () => {
                                         name="email"
                                         value={formData.email}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white transition-all"
+                                        className="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-800 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white"
                                         required
                                     />
                                 </div>
@@ -214,11 +218,13 @@ const Contact = () => {
                                         value={formData.phone}
                                         onChange={handleChange}
                                         placeholder="+1234567890"
-                                        className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white transition-all"
+                                        className="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-800 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white"
                                         required
                                     />
                                 </div>
                             </div>
+
+                            {/* Subject field */}
                             <div>
                                 <label className="block text-gray-300 text-sm font-medium mb-2">Subject</label>
                                 <input
@@ -226,10 +232,12 @@ const Contact = () => {
                                     name="subject"
                                     value={formData.subject}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white transition-all"
+                                    className="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-800 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white"
                                     required
                                 />
                             </div>
+
+                            {/* Message field */}
                             <div>
                                 <label className="block text-gray-300 text-sm font-medium mb-2">Message</label>
                                 <textarea
@@ -237,43 +245,25 @@ const Contact = () => {
                                     value={formData.message}
                                     onChange={handleChange}
                                     rows="6"
-                                    className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white resize-none transition-all"
+                                    className="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-800 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white resize-none"
                                     required
                                 ></textarea>
                             </div>
+
+                            {/* Submit button */}
                             <button
                                 type="submit"
                                 disabled={formStatus.loading}
-                                className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
+                                className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300 disabled:opacity-50"
                             >
                                 {formStatus.loading ? 'Sending...' : 'Send Message'}
                             </button>
-
-                            {formStatus.error && (
-                                <motion.p
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    className="text-red-500 text-center mt-2"
-                                >
-                                    {formStatus.error}
-                                </motion.p>
-                            )}
-
-                            {formStatus.success && (
-                                <motion.p
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    className="text-green-500 text-center mt-2"
-                                >
-                                    Message sent successfully!
-                                </motion.p>
-                            )}
                         </form>
-                    </motion.div>
+                    </div>
                 </div>
             </div>
         </div>
     );
 };
 
-export default Contact; 
+export default Contact;

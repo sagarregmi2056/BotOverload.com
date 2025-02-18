@@ -90,7 +90,7 @@ export default function HeroSection({ contactRef }) {
                     >
                         <h1 className="text-6xl md:text-7xl font-bold">
                             <span className="bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
-                                BotOverload is the new way
+                                Bot Overload is the new way
                             </span>
                             <br />
                             <span className="text-white">
@@ -108,19 +108,19 @@ export default function HeroSection({ contactRef }) {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="flex justify-center gap-6"
+                        className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6"
                     >
                         <a
                             href="https://agents.botoverload.com"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="px-12 py-4 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition-colors text-lg font-medium inline-block cursor-pointer"
+                            className="px-8 sm:px-12 py-3 sm:py-4 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition-colors text-base sm:text-lg font-medium inline-block cursor-pointer text-center"
                         >
                             Build your custom bot
                         </a>
                         <button
                             onClick={scrollToContact}
-                            className="px-12 py-4 border-2 border-purple-500 text-purple-400 rounded-xl hover:bg-purple-900/30 transition-colors text-lg font-medium"
+                            className="px-8 sm:px-12 py-3 sm:py-4 border-2 border-purple-500 text-purple-400 rounded-xl hover:bg-purple-900/30 transition-colors text-base sm:text-lg font-medium text-center"
                         >
                             Join our Wishlist
                         </button>
@@ -133,9 +133,9 @@ export default function HeroSection({ contactRef }) {
                         transition={{ duration: 0.8, delay: 0.4 }}
                         className="pt-20"
                     >
-                        <p className="text-gray-500 uppercase tracking-widest font-medium mb-12 text-center text-sm">
+                        {/* <p className="text-gray-500 uppercase tracking-widest font-medium mb-12 text-center text-sm">
                             TRUSTED BY TEAMS FROM AROUND THE WORLD
-                        </p>
+                        </p> */}
 
                         {/* change 1 */}
                         {/* <div className="flex justify-center items-center gap-20">

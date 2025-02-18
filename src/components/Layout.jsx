@@ -6,6 +6,7 @@ import {
   DocumentIcon,
   CogIcon,
 } from "@heroicons/react/20/solid";
+import { Helmet } from 'react-helmet-async';
 
 const Sidebar = () => {
   const [activeTab, setActiveTab] = useState("home");
@@ -36,10 +37,9 @@ const Sidebar = () => {
           whileTap={{ scale: 0.95 }}
           onClick={() => setActiveTab(item.name)}
           className={`w-12 h-12 rounded-xl flex items-center justify-center relative group
-            ${
-              activeTab === item.name
-                ? "bg-gradient-to-tr from-blue-500 to-purple-500 text-white"
-                : "text-gray-400 hover:text-white"
+            ${activeTab === item.name
+              ? "bg-gradient-to-tr from-blue-500 to-purple-500 text-white"
+              : "text-gray-400 hover:text-white"
             }`}
         >
           <item.icon className="h-6 w-6" />
@@ -57,19 +57,52 @@ const Sidebar = () => {
 };
 
 const Layout = ({ children }) => {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Bot Overload",
+    "url": "https://botoverload.com",
+    "logo": "https://botoverload.com/logo.png",
+    "description": "AI-powered automation platform for seamless message broadcasting and customer engagement",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Dubai Marina",
+      "addressLocality": "Dubai",
+      "addressCountry": "UAE"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+97156671503",
+      "contactType": "customer service",
+      "email": "support@botoverload.com"
+    },
+    "sameAs": [
+      "https://facebook.com/botoverload",
+      "https://twitter.com/botoverload",
+      "https://instagram.com/botoverload"
+    ]
+  };
+
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-      <Sidebar />
-      <motion.main
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="ml-20 flex-grow p-8"
-      >
-        <div className="backdrop-blur-xl bg-white/10 rounded-2xl p-6">
-          {children}
-        </div>
-      </motion.main>
-    </div>
+    <>
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
+      </Helmet>
+      <div className="flex min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+        <Sidebar />
+        <motion.main
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="ml-20 flex-grow p-8"
+        >
+          <div className="backdrop-blur-xl bg-white/10 rounded-2xl p-6">
+            {children}
+          </div>
+        </motion.main>
+      </div>
+    </>
   );
 };
 

@@ -32,6 +32,10 @@ import Model3D from './components/Model3D';
 import ErrorBoundary from './components/ErrorBoundary';
 import { DiscordIcon } from './components/DiscordIcon';
 import Boticon from './components/Boticon';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { BrowserRouter } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 
 const MessageLoadingAnimation = () => {
   return (
@@ -167,165 +171,181 @@ const App = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-black overflow-hidden">
-      {/* Background layer - make sure it doesn't block interactions */}
-      <div className="fixed inset-0 bg-black -z-20 pointer-events-none">
-        <AnimatedBackground />
-      </div>
-
-      {/* Content layer - should receive all interactions */}
-      <div className="relative z-10 pointer-events-auto">
-        <Navbar />
-
-        {/* Hero Section */}
-        <div className="relative min-h-[70vh]">
-          {/* 3D Model */}
-          <ErrorBoundary>
-            <div className="absolute inset-0">
-              {/* / <Model3D modelPath="/models/model.glb" /> */}
-            </div>
-          </ErrorBoundary>
-
-          {/* Welcome Text - Centered */}
-          <div className="relative z-10 flex items-center justify-center min-h-[70vh]">
-            <div className="max-w-3xl mx-auto px-4 text-center mt-40">
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                className="text-6xl font-bold bg-gradient-to-r from-[#4da6ff] via-[#a98eff] to-[#c18fff] bg-clip-text text-transparent mb-6"
-              >
-                Revolutionize Your Automation
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-gray-300 text-xl mb-8"
-              >
-                <p className="text-gray-300 text-xl mb-8">
-                  <span className="text-white px-2 py-1 rounded">
-                    Transform your business with AI-powered social automation. BotOverload seamlessly
-                    connects and manages all your platforms, making digital productivity effortless.
-                  </span>
-                </p>
-
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="flex gap-4 justify-center"
-              >
-                <a href="https://agents.botoverload.com" target="_blank" rel="noopener noreferrer">
-                  <button className="bg-purple-900 text-white px-2 py-2 mt-10 rounded-full font-bold border border-[#a98eff]/30 hover:bg-black/50 transition-colors hover:border-[#a98eff]/50 flex items-center gap-2">
-                    Build Your Bot
-
-                    <Boticon />
-                    {/* add bot icon here */}
-
-                  </button>
-                </a>
-
-
-              </motion.div>
-            </div>
+    <HelmetProvider>
+      <BrowserRouter>
+        <div className="relative min-h-screen bg-black overflow-hidden">
+          {/* Background layer - make sure it doesn't block interactions */}
+          <div className="fixed inset-0 bg-black -z-20 pointer-events-none">
+            <AnimatedBackground />
           </div>
-        </div>
 
-        {/* Make sure other sections can receive interactions */}
-        <div className="bg-black pointer-events-auto">
-          <div className="max-w-7xl mx-auto">
+          {/* Content layer - should receive all interactions */}
+          <div className="relative z-10 pointer-events-auto">
+            <Navbar />
+
             {/* Hero Section */}
-            <section id="home">
-              <HeroSection contactRef={contactRef} />
-            </section>
-
-            {/* Phone Demo Section */}
-            <div className="mt-2">
-              <div className="flex flex-row items-start gap-20">
-                <div className="ml-24">
-                  <div className="w-[320px]">
-                    <ShortcutsModal />
-                  </div>
+            <div className="relative min-h-[70vh]">
+              {/* 3D Model */}
+              <ErrorBoundary>
+                <div className="absolute inset-0">
+                  {/* / <Model3D modelPath="/models/model.glb" /> */}
                 </div>
+              </ErrorBoundary>
 
-                {/* Stats Section */}
-                <div id="stats-section" className="flex-1 pt-20">
-                  <div className="grid grid-cols-2 gap-8">
-                    <StatCard
-                      title="Lightning Fast"
-                      value="0.5"
-                      suffix="s/message"
-                      delay={0.6}
-                    />
-                    <StatCard
-                      title="Success Rate"
-                      value="99.9"
-                      suffix="%"
-                      delay={0.7}
-                    />
-                    <StatCard
-                      title="Messages/Day"
-                      value="100000"
-                      suffix="+"
-                      delay={0.8}
-                    />
-                    <StatCard
-                      title="Active Users"
-                      value="10000"
-                      suffix="+"
-                      delay={0.9}
-                    />
-                  </div>
+              {/* Welcome Text - Centered */}
+              <div className="relative z-10 flex items-center justify-center min-h-[70vh]">
+                <div className="max-w-3xl mx-auto px-4 text-center mt-40">
+                  <motion.h1
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="text-6xl font-bold bg-gradient-to-r from-[#4da6ff] via-[#a98eff] to-[#c18fff] bg-clip-text text-transparent mb-6"
+                  >
+                    Revolutionize Your Automation
+                  </motion.h1>
+
+                  <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    className="text-gray-300 text-xl mb-8"
+                  >
+                    <p className="text-gray-300 text-xl mb-8">
+                      <span className="text-white px-2 py-1 rounded">
+                        Transform your business with AI-powered social automation. BotOverload seamlessly
+                        connects and manages all your platforms, making digital productivity effortless.
+                      </span>
+                    </p>
+
+                  </motion.p>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                    className="flex gap-4 justify-center"
+                  >
+                    <a href="https://agents.botoverload.com" target="_blank" rel="noopener noreferrer">
+                      <button className="bg-purple-900 text-white px-2 py-2 mt-10 rounded-full font-bold border border-[#a98eff]/30 hover:bg-black/50 transition-colors hover:border-[#a98eff]/50 flex items-center gap-2">
+                        Build Your Bot
+
+                        <Boticon />
+                        {/* add bot icon here */}
+
+                      </button>
+                    </a>
+
+
+                  </motion.div>
                 </div>
               </div>
             </div>
 
-            {/* How It Works Section */}
-            <HowItWorks />
+            {/* Make sure other sections can receive interactions */}
+            <div className="bg-black pointer-events-auto">
+              <div className="max-w-7xl mx-auto">
+                {/* Hero Section */}
+                <section id="home">
+                  <HeroSection contactRef={contactRef} />
+                </section>
 
-            {/* Features Section */}
-            <section id="features">
-              <Features />
+                {/* Phone Demo Section */}
+                <div className="mt-2">
+                  <div className="flex flex-row items-start gap-20">
+                    <div className="ml-24">
+                      <div className="w-[320px]">
+                        <ShortcutsModal />
+                      </div>
+                    </div>
+
+                    {/* Stats Section */}
+                    <div id="stats-section" className="flex-1 pt-20">
+                      <div className="grid grid-cols-2 gap-8">
+                        <StatCard
+                          title="Lightning Fast"
+                          value="0.5"
+                          suffix="s/message"
+                          delay={0.6}
+                        />
+                        <StatCard
+                          title="Success Rate"
+                          value="99.9"
+                          suffix="%"
+                          delay={0.7}
+                        />
+                        <StatCard
+                          title="Messages/Day"
+                          value="100000"
+                          suffix="+"
+                          delay={0.8}
+                        />
+                        <StatCard
+                          title="Active Users"
+                          value="10000"
+                          suffix="+"
+                          delay={0.9}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* How It Works Section */}
+                <HowItWorks />
+
+                {/* Features Section */}
+                <section id="features">
+                  <Features />
+                </section>
+
+                {/* Pricing Section */}
+                <section id="pricingSection">
+                  {/* change 4 */}
+                  {/* <PricingSection /> */}
+                </section>
+
+                {/* Business Automation Section */}
+                <BusinessAutomation />
+              </div>
+            </div>
+
+            {/* Rest of the sections with black background */}
+            <div className="bg-black">
+              <div className="max-w-7xl mx-auto">
+                <AnimatedConnections />
+              </div>
+            </div>
+            {/* 
+            <div className="bg-black">
+              <PageContainer> */}
+            {/* change 2 */}
+            {/* <Dashboard /> */}
+            {/* </PageContainer>
+            </div> */}
+
+            <FlowingBackground className="pointer-events-none" />
+
+            <section ref={contactRef}>
+              <Contact />
             </section>
 
-            {/* Pricing Section */}
-            <section id="pricingSection">
-              {/* change 4 */}
-              {/* <PricingSection /> */}
-            </section>
-
-            {/* Business Automation Section */}
-            <BusinessAutomation />
+            <Footer />
           </div>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+          />
         </div>
-
-        {/* Rest of the sections with black background */}
-        <div className="bg-black">
-          <div className="max-w-7xl mx-auto">
-            <AnimatedConnections />
-          </div>
-        </div>
-        {/* 
-        <div className="bg-black">
-          <PageContainer> */}
-        {/* change 2 */}
-        {/* <Dashboard /> */}
-        {/* </PageContainer>
-        </div> */}
-
-        <FlowingBackground className="pointer-events-none" />
-
-        <section ref={contactRef}>
-          <Contact />
-        </section>
-
-        <Footer />
-      </div>
-    </div>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 };
 
