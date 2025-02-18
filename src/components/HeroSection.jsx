@@ -110,14 +110,14 @@ export default function HeroSection({ contactRef }) {
                         transition={{ duration: 0.8, delay: 0.2 }}
                         className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6"
                     >
-                        <a
+                        {/* <a
                             href="https://agents.botoverload.com"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="px-8 sm:px-12 py-3 sm:py-4 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition-colors text-base sm:text-lg font-medium inline-block cursor-pointer text-center"
                         >
                             Build your custom bot
-                        </a>
+                        </a> */}
                         <button
                             onClick={scrollToContact}
                             className="px-8 sm:px-12 py-3 sm:py-4 border-2 border-purple-500 text-purple-400 rounded-xl hover:bg-purple-900/30 transition-colors text-base sm:text-lg font-medium text-center"

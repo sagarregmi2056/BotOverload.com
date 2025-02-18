@@ -225,15 +225,15 @@ const App = () => {
                     transition={{ duration: 0.8, delay: 0.4 }}
                     className="flex gap-4 justify-center"
                   >
-                    <a href="https://agents.botoverload.com" target="_blank" rel="noopener noreferrer">
+                    {/* <a href="https://agents.botoverload.com" target="_blank" rel="noopener noreferrer">
                       <button className="bg-purple-900 text-white px-2 py-2 mt-10 rounded-full font-bold border border-[#a98eff]/30 hover:bg-black/50 transition-colors hover:border-[#a98eff]/50 flex items-center gap-2">
                         Build Your Bot
 
                         <Boticon />
-                        {/* add bot icon here */}
+                       
 
                       </button>
-                    </a>
+                    </a> */}
 
 
                   </motion.div>
@@ -269,7 +269,7 @@ const App = () => {
                         />
                         <StatCard
                           title="Success Rate"
-                          value="99.9"
+                          value="99"
                           suffix="%"
                           delay={0.7}
                         />
