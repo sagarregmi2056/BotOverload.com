@@ -69,7 +69,14 @@ const GlowingGif = styled.div`
   }
 `;
 
-const HeroSection = () => {
+export default function HeroSection({ contactRef }) {
+    const scrollToContact = () => {
+        contactRef.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    };
+
     return (
         <div className="bg-black min-h-screen">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20">
@@ -111,7 +118,10 @@ const HeroSection = () => {
                         >
                             Build your custom bot
                         </a>
-                        <button className="px-12 py-4 border-2 border-purple-500 text-purple-400 rounded-xl hover:bg-purple-900/30 transition-colors text-lg font-medium">
+                        <button
+                            onClick={scrollToContact}
+                            className="px-12 py-4 border-2 border-purple-500 text-purple-400 rounded-xl hover:bg-purple-900/30 transition-colors text-lg font-medium"
+                        >
                             Join our Wishlist
                         </button>
                     </motion.div>
@@ -126,7 +136,9 @@ const HeroSection = () => {
                         <p className="text-gray-500 uppercase tracking-widest font-medium mb-12 text-center text-sm">
                             TRUSTED BY TEAMS FROM AROUND THE WORLD
                         </p>
-                        <div className="flex justify-center items-center gap-20">
+
+                        {/* change 1 */}
+                        {/* <div className="flex justify-center items-center gap-20">
                             {companies.map((company, index) => (
                                 <motion.div
                                     key={company.name}
@@ -143,7 +155,7 @@ const HeroSection = () => {
                                     <span className="text-gray-500 text-sm">{company.name}</span>
                                 </motion.div>
                             ))}
-                        </div>
+                        </div> */}
                     </motion.div>
 
                     <GlowingGif>
@@ -156,6 +168,4 @@ const HeroSection = () => {
             </div>
         </div>
     );
-};
-
-export default HeroSection; 
+} 

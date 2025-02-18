@@ -6,7 +6,7 @@ import PhoneLayout from "./components/PhoneLayout";
 import Navbar from "./components/Navbar";
 import Background from './components/Background';
 import FlowingGradient from './components/FlowingGradient';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import MatrixBackground from "./components/MatrixBackground";
 import ShortcutsModal from "./components/ShortcutsModal";
 import BootloaderClock from "./components/BootloaderClock";
@@ -148,6 +148,8 @@ const StatCard = ({ title, value, suffix = "", delay = 0 }) => {
 };
 
 const App = () => {
+  const contactRef = useRef(null);
+
   useEffect(() => {
     const handleMouseMove = (e) => {
       document.querySelectorAll('.glass-morphism').forEach(card => {
@@ -186,7 +188,7 @@ const App = () => {
 
           {/* Welcome Text - Centered */}
           <div className="relative z-10 flex items-center justify-center min-h-[70vh]">
-            <div className="max-w-3xl mx-auto px-4 text-center">
+            <div className="max-w-3xl mx-auto px-4 text-center mt-40">
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -218,7 +220,7 @@ const App = () => {
                 className="flex gap-4 justify-center"
               >
                 <a href="https://agents.botoverload.com" target="_blank" rel="noopener noreferrer">
-                  <button className="bg-purple-900 text-white px-8 py-3 rounded-full font-bold border border-[#a98eff]/30 hover:bg-black/50 transition-colors hover:border-[#a98eff]/50 flex items-center gap-2">
+                  <button className="bg-purple-900 text-white px-2 py-2 mt-10 rounded-full font-bold border border-[#a98eff]/30 hover:bg-black/50 transition-colors hover:border-[#a98eff]/50 flex items-center gap-2">
                     Build Your Bot
 
                     <Boticon />
@@ -238,7 +240,7 @@ const App = () => {
           <div className="max-w-7xl mx-auto">
             {/* Hero Section */}
             <section id="home">
-              <HeroSection />
+              <HeroSection contactRef={contactRef} />
             </section>
 
             {/* Phone Demo Section */}
@@ -292,7 +294,8 @@ const App = () => {
 
             {/* Pricing Section */}
             <section id="pricingSection">
-              <PricingSection />
+              {/* change 4 */}
+              {/* <PricingSection /> */}
             </section>
 
             {/* Business Automation Section */}
@@ -306,16 +309,17 @@ const App = () => {
             <AnimatedConnections />
           </div>
         </div>
-
+        {/* 
         <div className="bg-black">
-          <PageContainer>
-            <Dashboard />
-          </PageContainer>
-        </div>
+          <PageContainer> */}
+        {/* change 2 */}
+        {/* <Dashboard /> */}
+        {/* </PageContainer>
+        </div> */}
 
         <FlowingBackground className="pointer-events-none" />
 
-        <section id="contact">
+        <section ref={contactRef}>
           <Contact />
         </section>
 

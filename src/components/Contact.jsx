@@ -1,17 +1,44 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { submitContactForm } from '../services/api';
 
 const Contact = () => {
     const [formData, setFormData] = useState({
-        name: '',
+        fullName: '',
         email: '',
+        phone: '',
         subject: '',
         message: ''
     });
+    const [formStatus, setFormStatus] = useState({ loading: false, error: null, success: false });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form submitted:', formData);
+        setFormStatus({ loading: true, error: null, success: false });
+
+        try {
+            await submitContactForm({
+                fullName: formData.fullName,
+                email: formData.email,
+                phone: formData.phone,
+                subject: formData.subject,
+                message: formData.message
+            });
+
+            setFormStatus({ loading: false, error: null, success: true });
+            setFormData({
+                fullName: '',
+                email: '',
+                phone: '',
+                subject: '',
+                message: ''
+            }); // Clear form
+
+            // Optional: Show success message
+            alert('Thank you for your message! We will get back to you soon.');
+        } catch (error) {
+            setFormStatus({ loading: false, error: error.message, success: false });
+        }
     };
 
     const handleChange = (e) => {
@@ -156,21 +183,37 @@ const Contact = () => {
                         <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent pointer-events-none"></div>
 
                         <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <div>
                                     <label className="block text-gray-300 text-sm font-medium mb-2">Full Name</label>
                                     <input
                                         type="text"
-                                        name="name"
+                                        name="fullName"
+                                        value={formData.fullName}
+                                        onChange={handleChange}
                                         className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white transition-all"
                                         required
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-gray-300 text-sm font-medium mb-2">Email Address</label>
+                                    <label className="block text-gray-300 text-sm font-medium mb-2">Business Email Address</label>
                                     <input
                                         type="email"
                                         name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white transition-all"
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-gray-300 text-sm font-medium mb-2">Business Phone Number</label>
+                                    <input
+                                        type="tel"
+                                        name="phone"
+                                        value={formData.phone}
+                                        onChange={handleChange}
+                                        placeholder="+1234567890"
                                         className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white transition-all"
                                         required
                                     />
@@ -181,6 +224,8 @@ const Contact = () => {
                                 <input
                                     type="text"
                                     name="subject"
+                                    value={formData.subject}
+                                    onChange={handleChange}
                                     className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white transition-all"
                                     required
                                 />
@@ -189,6 +234,8 @@ const Contact = () => {
                                 <label className="block text-gray-300 text-sm font-medium mb-2">Message</label>
                                 <textarea
                                     name="message"
+                                    value={formData.message}
+                                    onChange={handleChange}
                                     rows="6"
                                     className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white resize-none transition-all"
                                     required
@@ -196,10 +243,31 @@ const Contact = () => {
                             </div>
                             <button
                                 type="submit"
-                                className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105"
+                                disabled={formStatus.loading}
+                                className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
                             >
-                                Send Message
+                                {formStatus.loading ? 'Sending...' : 'Send Message'}
                             </button>
+
+                            {formStatus.error && (
+                                <motion.p
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    className="text-red-500 text-center mt-2"
+                                >
+                                    {formStatus.error}
+                                </motion.p>
+                            )}
+
+                            {formStatus.success && (
+                                <motion.p
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    className="text-green-500 text-center mt-2"
+                                >
+                                    Message sent successfully!
+                                </motion.p>
+                            )}
                         </form>
                     </motion.div>
                 </div>

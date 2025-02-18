@@ -367,7 +367,8 @@ const FlowingBackground = () => {
                         </div>
                     ))}
                 </motion.div>
-
+                {/* changes 3 */}
+                {/* 
                 <div className="relative z-10 py-16">
                     <h2 className="text-3xl font-bold text-left text-white mb-12">What Our Users Say</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl">
@@ -404,7 +405,7 @@ const FlowingBackground = () => {
                             </motion.div>
                         ))}
                     </div>
-                </div>
+                </div> */}
 
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -412,9 +413,19 @@ const FlowingBackground = () => {
                     transition={{ duration: 0.8 }}
                     className="relative z-10 text-left py-16"
                 >
-                    <button className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105">
+                    <a
+                        href="https://agents.botoverload.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-12 py-4 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition-colors text-lg font-medium inline-block cursor-pointer"
+                    >
                         Get Started Free
-                    </button>
+                    </a>
+
+                    {/* <button className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105">
+                        Get Started Free
+
+                    </button> */}
                 </motion.div>
             </div>
         </div>
