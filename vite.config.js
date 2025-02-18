@@ -1,26 +1,28 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { VitePWA } from 'vite-plugin-pwa'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { VitePWA } from 'vite-plugin-pwa';
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
+      includeAssets: ['favicon.ico', 'robots.txt'],
       manifest: {
         name: 'Bot Overload',
         short_name: 'BotOverload',
+        description: 'AI-powered automation platform',
         theme_color: '#000000',
+        background_color: '#000000',
+        display: 'standalone',
         icons: [
           {
-            src: '/android-chrome-192x192.png',
+            src: '/icon-192x192.png',
             sizes: '192x192',
             type: 'image/png'
           },
           {
-            src: '/android-chrome-512x512.png',
+            src: '/icon-512x512.png',
             sizes: '512x512',
             type: 'image/png'
           }
@@ -33,8 +35,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom', 'framer-motion'],
-          features: ['./src/components/Features.jsx'],
-          utils: ['./src/utils']
+          router: ['react-router-dom']
         }
       }
     },
@@ -42,4 +43,4 @@ export default defineConfig({
     sourcemap: false,
     minify: 'terser'
   }
-})
+});
