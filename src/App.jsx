@@ -325,7 +325,7 @@ const App = () => {
 
             <FlowingBackground className="pointer-events-none" />
 
-            <section ref={contactRef}>
+            <section id="contact" ref={contactRef}>
               <Contact />
             </section>
 

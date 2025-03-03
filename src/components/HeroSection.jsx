@@ -79,8 +79,32 @@ export default function HeroSection({ contactRef }) {
 
     return (
         <div className="bg-black min-h-screen">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6"
+            >
+                {/* <a
+                            href="https://agents.botoverload.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-8 sm:px-12 py-3 sm:py-4 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition-colors text-base sm:text-lg font-medium inline-block cursor-pointer text-center"
+                        >
+                            Build your custom bot
+                        </a> */}
+                <button
+                    onClick={scrollToContact}
+                    className="px-8 sm:px-12 py-3 sm:py-4 border-2 border-purple-500 text-purple-400 rounded-xl hover:bg-purple-900/30 transition-colors text-base sm:text-lg font-medium text-center"
+                >
+                    Join our Wishlist
+                </button>
+            </motion.div>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20">
                 <div className="text-center space-y-12">
+
+                    {/* CTA Buttons */}
+
                     {/* Main Heading */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -103,28 +127,7 @@ export default function HeroSection({ contactRef }) {
                         </p>
                     </motion.div>
 
-                    {/* CTA Buttons */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6"
-                    >
-                        {/* <a
-                            href="https://agents.botoverload.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="px-8 sm:px-12 py-3 sm:py-4 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition-colors text-base sm:text-lg font-medium inline-block cursor-pointer text-center"
-                        >
-                            Build your custom bot
-                        </a> */}
-                        <button
-                            onClick={scrollToContact}
-                            className="px-8 sm:px-12 py-3 sm:py-4 border-2 border-purple-500 text-purple-400 rounded-xl hover:bg-purple-900/30 transition-colors text-base sm:text-lg font-medium text-center"
-                        >
-                            Join our Wishlist
-                        </button>
-                    </motion.div>
+
 
                     {/* Trust Badge */}
                     <motion.div
